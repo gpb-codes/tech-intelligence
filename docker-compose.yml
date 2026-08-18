@@ -28,10 +28,12 @@ services:
       DATABASE_PATH: /app/database/tech_intelligence.db
     volumes:
       - ./vault:/app/vault
-      - ./database:/app/database
+      # DB en volumen Docker (NO en bind mount): OneDrive corrompe SQLite
+      - ti_data:/app/database
       - ./config:/app/config
       - ./logs:/app/logs
     command: ["scheduler"]
 
 volumes:
   ollama_data:
+  ti_data:
