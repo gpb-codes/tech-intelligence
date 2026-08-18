@@ -128,20 +128,20 @@ class OllamaClient:
 
 
 class OpenRouterClient:
-    """Cliente para OpenRouter (chat completions compatible con OpenAI).
+    """Cliente para APIs cloud compatibles con OpenAI (chat completions).
+
+    Usa OpenRouter por defecto; con base_url distinta sirve para otros
+    proveedores OpenAI-compatibles (p. ej. OpenCode Zen).
 
     Soporta varios modelos: se rotan en cada llamada (round-robin) para
     repartir el trabajo y, si uno devuelve 429 (rate limit), se intenta
     con el siguiente automáticamente (failover).
-
-    Usa web search automáticamente si el modelo tiene sufijo ":online"
-    (ej. "moonshotai/kimi-k2:online"), lo que permite investigar en internet.
     """
 
     BASE_URL = "https://openrouter.ai/api/v1"
 
     def __init__(self, api_key: str, model: str | None = None, models: list[str] | None = None,
-                 timeout: int = 120, temperature: float = 0.1):
+                 timeout: int = 120, temperature: float = 0.1, base_url: str | None = None):
         self.api_key = api_key
         self.models = [m for m in (models or []) if m]
         if model and model not in self.models:
@@ -150,13 +150,15 @@ class OpenRouterClient:
         self.timeout = timeout
         self.temperature = temperature
         self._cursor = 0
+        self.BASE_URL = (base_url or self.BASE_URL).rstrip("/")
 
     # ------------------------------------------------------------------
 
     def is_available(self, timeout: int = 5) -> bool:
+        """Considera el backend disponible si el servidor responde (cualquier status)."""
         try:
-            resp = requests.get(f"{self.BASE_URL}/models", timeout=timeout)
-            return resp.status_code == 200
+            requests.get(f"{self.BASE_URL}/models", timeout=timeout)
+            return True
         except requests.RequestException:
             return False
 
@@ -205,7 +207,7 @@ class OpenRouterClient:
                 )
                 if resp.status_code == 429:
                     first_error = OllamaError(
-                        f"Rate limit de OpenRouter en {model}: {resp.text[:200]}")
+                        f"Rate limit de la API en {model}: {resp.text[:200]}")
                     continue
                 resp.raise_for_status()
                 data = resp.json()

@@ -19,7 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 @dataclass
 class Settings:
-    # IA: backend activo (ollama | openrouter)
+    # IA: backend activo (ollama | openrouter | opencodezen)
     ai_backend: str = "ollama"
 
     # Ollama
@@ -33,6 +33,12 @@ class Settings:
     openrouter_model: str = "deepseek/deepseek-chat"
     openrouter_models: list[str] = field(default_factory=list)
     openrouter_timeout: int = 180
+
+    # OpenCode Zen (API OpenAI-compatible en https://opencode.ai/zen/v1)
+    opencodezen_api_key: str = ""
+    opencodezen_model: str = "nemotron-3.5-lightning-free"
+    opencodezen_models: list[str] = field(default_factory=list)
+    opencodezen_timeout: int = 180
 
     # Rutas
     vault_path: Path = field(default_factory=lambda: PROJECT_ROOT / "vault")
@@ -139,6 +145,12 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.openrouter_model = v
     if v := _env("OPENROUTER_MODELS"):
         s.openrouter_models = [m.strip() for m in v.split(",") if m.strip()]
+    if v := _env("OPCODEZEN_API_KEY"):
+        s.opencodezen_api_key = v
+    if v := _env("OPCODEZEN_MODEL"):
+        s.opencodezen_model = v
+    if v := _env("OPCODEZEN_MODELS"):
+        s.opencodezen_models = [m.strip() for m in v.split(",") if m.strip()]
     if v := _env("VAULT_PATH"):
         s.vault_path = Path(_resolve(v, PROJECT_ROOT) or v)
     if v := _env("DATABASE_PATH"):

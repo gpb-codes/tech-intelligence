@@ -42,18 +42,24 @@ def run_health(conn: sqlite3.Connection, settings) -> HealthReport:
     except sqlite3.Error as e:
         report.add("SQLite", False, str(e))
 
-    # IA (backend configurado: Ollama local u OpenRouter)
-    if settings.ai_backend == "openrouter":
-        client = OpenRouterClient(settings.openrouter_api_key, models=settings.openrouter_models,
-                                  timeout=settings.ollama_timeout)
+    # IA (backend configurado: OpenRouter, OpenCode Zen u Ollama local)
+    if settings.ai_backend in ("openrouter", "opencodezen"):
+        is_zen = settings.ai_backend == "opencodezen"
+        client = OpenRouterClient(
+            settings.opencodezen_api_key if is_zen else settings.openrouter_api_key,
+            models=settings.opencodezen_models or ([settings.opencodezen_model] if is_zen else []),
+            timeout=settings.ollama_timeout,
+            base_url="https://opencode.ai/zen/v1" if is_zen else None,
+        )
+        name = "Zen" if is_zen else "OpenRouter"
         if client.is_available():
             models = ", ".join(client.models) or settings.openrouter_model
             detail = f"{len(client.models)} modelos: {models[:60]}"
             if settings.hybrid_ollama:
                 detail += f" + Ollama local ({settings.ollama_model})"
-            report.add("OpenRouter", True, detail)
+            report.add(name, True, detail)
         else:
-            report.add("OpenRouter", False, "sin conexión con openrouter.ai")
+            report.add(name, False, f"sin conexión con {client.BASE_URL}")
     else:
         client = OllamaClient(settings.ollama_base_url, settings.ollama_model,
                               timeout=settings.ollama_timeout)

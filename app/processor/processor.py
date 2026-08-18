@@ -32,11 +32,19 @@ class ProcessResult:
 
 
 def build_client(settings, worker_index: int = 0):
-    """Crea el cliente de IA según el backend configurado (ollama | openrouter).
+    """Crea el cliente de IA según el backend configurado (ollama | openrouter | opencodezen).
 
     Con hybrid_ollama=True, el último worker usa Ollama local (llama) en
-    paralelo con los de OpenRouter.
+    paralelo con los de la API cloud.
     """
+    if settings.ai_backend == "opencodezen":
+        return OpenRouterClient(
+            api_key=settings.opencodezen_api_key,
+            models=settings.opencodezen_models or [settings.opencodezen_model],
+            timeout=settings.opencodezen_timeout,
+            temperature=settings.ollama_temperature,
+            base_url="https://opencode.ai/zen/v1",
+        )
     if settings.ai_backend == "openrouter" and settings.hybrid_ollama:
         # El worker extra (último) usa Ollama local; el resto OpenRouter
         total = settings.processing_workers + 1
