@@ -112,6 +112,14 @@ class Processor:
         attempts = self._attempts_for(article_id)
 
         if attempts >= self.settings.max_processing_attempts:
+            last = repo.last_job_error(self.conn, article_id)
+            if last and "Rate limit" in last:
+                # Intentos gastados por rate limits: no penalizar, reintentar
+                logger.warning("Artículo %s agotó intentos por rate limit -> se mantiene pendiente", article_id)
+                repo.delete_jobs_for_article(self.conn, article_id)
+                repo.set_article_status(self.conn, article_id, repo.STATUS_PENDING)
+                repo.job_finished(self.conn, job_id, ok=False, error="rate limit (intentos no gastados)")
+                return False
             logger.error("Artículo %s superó %d intentos -> failed", article_id, self.settings.max_processing_attempts)
             repo.set_article_status(self.conn, article_id, repo.STATUS_FAILED)
             repo.job_finished(self.conn, job_id, ok=False, error="max attempts")
@@ -120,11 +128,16 @@ class Processor:
         try:
             ok, status, error = self._run_pipeline(article, article_id)
         except OllamaError as e:
-            # Ollama falló: guardar como pendiente para reintentar después
+            # Ollama falló: guardar como pendiente para reintentar después.
+            # Si es rate limit (429), NO se consume intento: se borra el job
+            # para que el artículo se pueda reintentar sin penalización.
             logger.warning("Ollama falló para artículo %s: %s", article_id, e)
             err_log.error("Ollama en artículo %s: %s", article_id, e)
+            if "Rate limit" in str(e):
+                repo.delete_job(self.conn, job_id)
+            else:
+                repo.job_finished(self.conn, job_id, ok=False, error=str(e)[:500])
             repo.set_article_status(self.conn, article_id, repo.STATUS_PENDING)
-            repo.job_finished(self.conn, job_id, ok=False, error=str(e)[:500])
             return False
 
         repo.job_finished(self.conn, job_id, ok=ok, error=error)
