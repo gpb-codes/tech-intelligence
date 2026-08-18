@@ -130,17 +130,26 @@ class OllamaClient:
 class OpenRouterClient:
     """Cliente para OpenRouter (chat completions compatible con OpenAI).
 
+    Soporta varios modelos: se rotan en cada llamada (round-robin) para
+    repartir el trabajo y, si uno devuelve 429 (rate limit), se intenta
+    con el siguiente automáticamente (failover).
+
     Usa web search automáticamente si el modelo tiene sufijo ":online"
     (ej. "moonshotai/kimi-k2:online"), lo que permite investigar en internet.
     """
 
     BASE_URL = "https://openrouter.ai/api/v1"
 
-    def __init__(self, api_key: str, model: str, timeout: int = 120, temperature: float = 0.1):
+    def __init__(self, api_key: str, model: str | None = None, models: list[str] | None = None,
+                 timeout: int = 120, temperature: float = 0.1):
         self.api_key = api_key
-        self.model = model
+        self.models = [m for m in (models or []) if m]
+        if model and model not in self.models:
+            self.models.insert(0, model)
+        self.model = self.models[0] if self.models else (model or "")
         self.timeout = timeout
         self.temperature = temperature
+        self._cursor = 0
 
     # ------------------------------------------------------------------
 
@@ -151,10 +160,16 @@ class OpenRouterClient:
         except requests.RequestException:
             return False
 
+    def _next_model(self) -> str:
+        """Devuelve el siguiente modelo en rotación (round-robin)."""
+        model = self.models[self._cursor % len(self.models)]
+        self._cursor += 1
+        return model
+
     def _chat(self, prompt: str, system: str | None, format_json: bool) -> str:
         if not self.api_key:
             raise OllamaError("OPENROUTER_API_KEY no está configurada (.env)")
-        if not self.model:
+        if not self.models:
             raise OllamaError("OPENROUTER_MODEL no está configurado (.env)")
 
         messages = []
@@ -162,43 +177,54 @@ class OpenRouterClient:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})
 
-        payload: dict = {
-            "model": self.model,
-            "messages": messages,
-            "temperature": self.temperature,
-        }
-        if format_json:
-            payload["response_format"] = {"type": "json_object"}
+        # Failover: si un modelo devuelve 429, se prueba con el siguiente
+        first_error: OllamaError | None = None
+        for _ in range(len(self.models)):
+            model = self._next_model()
 
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-        }
+            payload: dict = {
+                "model": model,
+                "messages": messages,
+                "temperature": self.temperature,
+            }
+            if format_json:
+                payload["response_format"] = {"type": "json_object"}
 
-        logger.info("OpenRouter generate: model=%s, prompt_len=%d", self.model, len(prompt))
-        try:
-            resp = requests.post(
-                f"{self.BASE_URL}/chat/completions",
-                json=payload,
-                headers=headers,
-                timeout=self.timeout,
-            )
-            resp.raise_for_status()
-            data = resp.json()
-        except requests.Timeout as e:
-            raise OllamaError(f"Timeout de OpenRouter ({self.timeout}s): {e}") from e
-        except requests.RequestException as e:
-            raise OllamaError(f"Error de conexión con OpenRouter: {e}") from e
-        except json.JSONDecodeError as e:
-            raise OllamaError(f"Respuesta no JSON de OpenRouter: {e}") from e
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
 
-        try:
-            response = data["choices"][0]["message"]["content"]
-        except (KeyError, IndexError, TypeError) as e:
-            raise OllamaError(f"Respuesta inesperada de OpenRouter: {data}") from e
-        if not response.strip():
-            raise OllamaError("OpenRouter devolvió una respuesta vacía")
-        return response.strip()
+            logger.info("OpenRouter generate: model=%s, prompt_len=%d", model, len(prompt))
+            try:
+                resp = requests.post(
+                    f"{self.BASE_URL}/chat/completions",
+                    json=payload,
+                    headers=headers,
+                    timeout=self.timeout,
+                )
+                if resp.status_code == 429:
+                    first_error = OllamaError(
+                        f"Rate limit de OpenRouter en {model}: {resp.text[:200]}")
+                    continue
+                resp.raise_for_status()
+                data = resp.json()
+            except requests.Timeout as e:
+                raise OllamaError(f"Timeout de OpenRouter ({self.timeout}s): {e}") from e
+            except requests.RequestException as e:
+                raise OllamaError(f"Error de conexión con OpenRouter: {e}") from e
+            except json.JSONDecodeError as e:
+                raise OllamaError(f"Respuesta no JSON de OpenRouter: {e}") from e
+
+            try:
+                response = data["choices"][0]["message"]["content"]
+            except (KeyError, IndexError, TypeError) as e:
+                raise OllamaError(f"Respuesta inesperada de OpenRouter: {data}") from e
+            if not response.strip():
+                raise OllamaError("OpenRouter devolvió una respuesta vacía")
+            return response.strip()
+
+        raise first_error or OllamaError("Todos los modelos de OpenRouter fallaron")
 
     def generate(self, prompt: str, system: str | None = None, format_json: bool = False) -> str:
         return self._chat(prompt, system, format_json)

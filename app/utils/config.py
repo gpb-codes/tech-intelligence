@@ -31,6 +31,7 @@ class Settings:
     # OpenRouter
     openrouter_api_key: str = ""
     openrouter_model: str = "deepseek/deepseek-chat"
+    openrouter_models: list[str] = field(default_factory=list)
     openrouter_timeout: int = 180
 
     # Rutas
@@ -46,6 +47,7 @@ class Settings:
     # Procesamiento
     max_processing_attempts: int = 3
     long_content_chars: int = 15000
+    processing_workers: int = 3
 
     # Git
     git_enabled: bool = True
@@ -99,6 +101,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.ai_backend = ai.get("backend", s.ai_backend)
         s.openrouter_api_key = ai.get("openrouter_api_key", s.openrouter_api_key)
         s.openrouter_model = ai.get("openrouter_model", s.openrouter_model)
+        s.openrouter_models = list(ai.get("openrouter_models") or [])
         s.openrouter_timeout = int(ai.get("openrouter_timeout", s.openrouter_timeout))
         s.ollama_base_url = o.get("base_url", s.ollama_base_url)
         s.ollama_model = o.get("model", s.ollama_model)
@@ -111,6 +114,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.sync_interval = int(data.get("settings", {}).get("sync_interval", s.sync_interval))
         s.max_processing_attempts = int(data.get("settings", {}).get("max_processing_attempts", s.max_processing_attempts))
         s.long_content_chars = int(data.get("settings", {}).get("long_content_chars", s.long_content_chars))
+        s.processing_workers = int(data.get("settings", {}).get("processing_workers", s.processing_workers))
         s.git_enabled = bool(data.get("settings", {}).get("git_enabled", s.git_enabled))
         s.git_commit_prefix = data.get("settings", {}).get("git_commit_prefix", s.git_commit_prefix)
 
@@ -131,6 +135,8 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.openrouter_api_key = v
     if v := _env("OPENROUTER_MODEL"):
         s.openrouter_model = v
+    if v := _env("OPENROUTER_MODELS"):
+        s.openrouter_models = [m.strip() for m in v.split(",") if m.strip()]
     if v := _env("VAULT_PATH"):
         s.vault_path = Path(_resolve(v, PROJECT_ROOT) or v)
     if v := _env("DATABASE_PATH"):
@@ -143,5 +149,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.github_token = v
     if v := _env("MAX_PROCESSING_ATTEMPTS"):
         s.max_processing_attempts = int(v)
+    if v := _env("PROCESSING_WORKERS"):
+        s.processing_workers = int(v)
 
     return s

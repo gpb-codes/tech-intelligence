@@ -63,7 +63,7 @@ def sync(settings: Settings | None = None, only_sources: list[str] | None = None
     # 2. Process
     if not skip_process:
         processor = Processor(conn, settings)
-        report.process = processor.process_pending()
+        report.process = processor.process_pending(workers=settings.processing_workers)
         logger.info("Process: %d OK", report.process.processed)
 
     # 3. Export JSONL + Dashboard

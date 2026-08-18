@@ -57,7 +57,8 @@ def cmd_process(args) -> int:
         print(f"Artículo {args.id}: {'OK' if ok else 'pendiente/falló (revisar logs)'}")
         return 0 if ok else 1
 
-    result = processor.process_pending(failed=args.failed, all_articles=args.all)
+    result = processor.process_pending(failed=args.failed, all_articles=args.all,
+                                       workers=args.workers or settings.processing_workers)
     print(f"Procesados: {result.processed} | Fallidos: {result.failed} | Pendientes: {result.pending}")
     return 0
 
@@ -169,10 +170,11 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--sources", nargs="*")
     s.set_defaults(func=cmd_collect)
 
-    s = sub.add_parser("process", help="Procesar pendientes con Ollama")
+    s = sub.add_parser("process", help="Procesar pendientes con IA")
     s.add_argument("--id", help="Procesar un artículo por ID (ti-2026-000001)")
     s.add_argument("--failed", action="store_true", help="Reintentar fallidos")
     s.add_argument("--all", dest="all", action="store_true", help="Re-procesar todo")
+    s.add_argument("--workers", type=int, default=0, help="Procesamiento en paralelo (default: settings.processing_workers)")
     s.set_defaults(func=cmd_process)
 
     s = sub.add_parser("export", help="Generar JSONL en el Vault")

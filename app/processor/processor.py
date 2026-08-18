@@ -34,9 +34,10 @@ class ProcessResult:
 def build_client(settings):
     """Crea el cliente de IA según el backend configurado (ollama | openrouter)."""
     if settings.ai_backend == "openrouter":
+        models = settings.openrouter_models or [settings.openrouter_model]
         return OpenRouterClient(
             api_key=settings.openrouter_api_key,
-            model=settings.openrouter_model,
+            models=models,
             timeout=settings.openrouter_timeout,
             temperature=settings.ollama_temperature,
         )
@@ -189,8 +190,12 @@ class Processor:
     # ------------------------------------------------------------------
 
     def process_pending(self, only_ids: list[int] | None = None, failed: bool = False,
-                        all_articles: bool = False) -> ProcessResult:
-        """Procesa artículos pendientes (o fallidos, o todos)."""
+                        all_articles: bool = False, workers: int = 1) -> ProcessResult:
+        """Procesa artículos pendientes (o fallidos, o todos).
+
+        Con workers > 1 procesa en paralelo: cada worker usa su propia
+        conexión SQLite y su propio cliente (rota entre los modelos).
+        """
         result = ProcessResult()
 
         if only_ids:
@@ -207,17 +212,50 @@ class Processor:
             articles = repo.list_articles(self.conn, status=repo.STATUS_PENDING, limit=1000) + \
                        repo.list_articles(self.conn, status=repo.STATUS_NEW, limit=1000)
 
-        for article in articles:
-            ok = self.process(article["id"])
-            if ok:
-                result.processed += 1
-            else:
-                current = repo.get_article(self.conn, article["id"])
-                if current and current["status"] == repo.STATUS_FAILED:
-                    result.failed += 1
-                else:
-                    result.pending += 1
+        if workers <= 1 or len(articles) <= 1:
+            for article in articles:
+                self._process_one(article["id"], result)
+            logger.info("Procesamiento: %d OK, %d fallidos, %d pendientes",
+                        result.processed, result.failed, result.pending)
+            return result
 
-        logger.info("Procesamiento: %d OK, %d fallidos, %d pendientes",
-                    result.processed, result.failed, result.pending)
+        # Procesamiento paralelo: cada worker procesa un subconjunto
+        from concurrent.futures import ThreadPoolExecutor
+        from app.database.connection import get_connection
+
+        def _worker(chunk: list[dict]) -> ProcessResult:
+            conn = get_connection(self.settings.database_path)
+            try:
+                worker = Processor(conn, self.settings)
+                local = ProcessResult()
+                for article in chunk:
+                    worker._process_one(article["id"], local)
+                return local
+            finally:
+                conn.close()
+
+        chunks: list[list[dict]] = [[] for _ in range(workers)]
+        for i, article in enumerate(articles):
+            chunks[i % workers].append(article)
+
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            for local in pool.map(_worker, chunks):
+                result.processed += local.processed
+                result.failed += local.failed
+                result.pending += local.pending
+                result.skipped_no_content += local.skipped_no_content
+
+        logger.info("Procesamiento (paralelo, %d workers): %d OK, %d fallidos, %d pendientes",
+                    workers, result.processed, result.failed, result.pending)
         return result
+
+    def _process_one(self, article_id: int, result: ProcessResult) -> None:
+        ok = self.process(article_id)
+        if ok:
+            result.processed += 1
+        else:
+            current = repo.get_article(self.conn, article_id)
+            if current and current["status"] == repo.STATUS_FAILED:
+                result.failed += 1
+            else:
+                result.pending += 1
