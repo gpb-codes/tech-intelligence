@@ -61,6 +61,27 @@ cssclasses: [ti-note]
 > - Razón 1
 > - Razón 2
 
+## 📊 Informe para desarrolladores
+
+> [!info] ¿Qué es?
+> 
+
+> [!tip] ¿En qué ayuda al desarrollo?
+> 
+
+### Relevancia por perfil
+
+| Perfil | Relevancia | Debes saber / actualizarte |
+| --- | --- | --- |
+| Trainee | | |
+| Junior | | |
+| Semi-Senior | | |
+| Senior | | |
+| Ingeniero de Software | | |
+| Ingeniero en Redes | | |
+| DevOps / SRE | | |
+| Ciberseguridad | | |
+
 ## Información técnica
 
 - **Versión:** 

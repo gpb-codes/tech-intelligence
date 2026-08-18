@@ -110,8 +110,10 @@ def build_frontmatter(article: dict, result: dict, category_folder: str) -> dict
         "source": article.get("source_name", ""),
         "source_url": article.get("url") or "",
         "source_type": article.get("source_type", ""),
-        "processed_by": "ollama",
+        "processed_by": "ollama" if result.get("backend", "ollama") == "ollama" else "openrouter",
+        "backend": result.get("backend", "ollama"),
         "model": result.get("model") or "",
+        "insights": bool((result.get("insights") or {}).get("profiles")),
         "status": "published",
         "category": classification.get("category") or "General Tech",
         "subcategory": classification.get("subcategory") or "",
@@ -179,6 +181,46 @@ def _badges_line(article: dict, result: dict) -> str:
     return " · ".join(parts)
 
 
+def _insights_section(result: dict) -> str:
+    """Sección 'Informe para desarrolladores' a partir del módulo insights."""
+    insights = result.get("insights") or {}
+    what_is = (insights.get("what_is") or "").strip()
+    why_dev = (insights.get("why_development") or "").strip()
+    profiles = insights.get("profiles") or []
+    if not (what_is or why_dev or profiles):
+        return ""
+
+    lines = ["## 📊 Informe para desarrolladores", ""]
+
+    if what_is:
+        lines.append("> [!info] ¿Qué es?")
+        lines.append(">")
+        for para in what_is.splitlines():
+            lines.append(f"> {para}")
+        lines.append("")
+
+    if why_dev:
+        lines.append("> [!tip] ¿En qué ayuda al desarrollo?")
+        lines.append(">")
+        for para in why_dev.splitlines():
+            lines.append(f"> {para}")
+        lines.append("")
+
+    if profiles:
+        lines.append("### Relevancia por perfil")
+        lines.append("")
+        lines.append("| Perfil | Relevancia | Debes saber / actualizarte |")
+        lines.append("| --- | --- | --- |")
+        for p in profiles:
+            role = p.get("role", "")
+            relevance = p.get("relevance", "")
+            must_know = " · ".join(p.get("must_know") or []) or "—"
+            lines.append(f"| {role} | {relevance} | {must_know} |")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
 def build_body(article: dict, result: dict) -> str:
     """Cuerpo Markdown de la nota según el template definido."""
     classification = result.get("classification") or {}
@@ -230,6 +272,11 @@ def build_body(article: dict, result: dict) -> str:
         lines.append(">")
         for r in reasons:
             lines.append(f"> - {r}")
+        lines.append("")
+
+    insights_section = _insights_section(result)
+    if insights_section:
+        lines.append(insights_section)
         lines.append("")
 
     tech_parts = []

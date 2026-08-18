@@ -39,6 +39,15 @@ class FakeOllama:
                     "reasons": ["Lanzamiento relevante"]}
         if "Identifica posibles alternativas" in prompt:
             return {"alternatives": [{"name": "AltB", "confidence": "high"}]}
+        if "MINI INFORME profesional" in prompt:
+            return {
+                "what_is": "Herramienta CLI para agentes de IA.",
+                "why_development": "Automatiza tareas de desarrollo.",
+                "profiles": [
+                    {"role": "Trainee", "relevance": "Media", "must_know": ["Conceptos básicos"]},
+                    {"role": "Senior", "relevance": "Alta", "must_know": ["Integración", "Arquitectura"]},
+                ],
+            }
         return {}
 
 
@@ -93,6 +102,10 @@ def test_full_sync_pipeline(db, settings, monkeypatch, tmp_path):
     assert "pricing: open-source" in text
     assert "open_source: true" in text
     assert "translated: true" in text
+    assert "Informe para desarrolladores" in text
+    assert "Herramienta CLI para agentes de IA" in text
+    assert "Trainee" in text
+    assert "insights: true" in text
 
     # 4. JSONL
     files = export_jsonl(db, settings)

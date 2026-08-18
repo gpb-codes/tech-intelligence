@@ -88,10 +88,37 @@ def test_prompts_exist():
     from pathlib import Path
 
     prompts_dir = Path("app/ollama/prompts")
-    for name in ("translate", "summarize", "classify", "extract", "importance", "alternative"):
+    for name in ("translate", "summarize", "classify", "extract", "importance", "alternative", "insights"):
         assert (prompts_dir / f"{name}.txt").exists()
         text = load_prompt(prompts_dir, name)
         assert "{{CONTENT}}" in text
+
+
+def test_insights_generator(monkeypatch):
+    from pathlib import Path
+
+    from app.ollama.modules import InsightsGenerator
+
+    def fake_generate_json(prompt, system=None):
+        return {
+            "what_is": "Lenguaje de programación.",
+            "why_development": "Automatiza infraestructura.",
+            "profiles": [
+                {"role": "Trainee", "relevance": "Baja", "must_know": ["Conceptos"]},
+                {"role": "Ingeniero en Redes", "relevance": "Alta", "must_know": ["Configuración"]},
+                {"role": "Rol Inexistente", "relevance": "Muy Alta", "must_know": ["x"]},
+            ],
+        }
+
+    client = OllamaClient("http://x", "m")
+    monkeypatch.setattr(client, "generate_json", fake_generate_json)
+    gen = InsightsGenerator(client, Path("app/ollama/prompts"))
+    out = gen.generate("contenido")
+    assert out["what_is"] == "Lenguaje de programación."
+    roles = [p["role"] for p in out["profiles"]]
+    assert roles == ["Trainee", "Ingeniero en Redes", "Rol Inexistente"]
+    assert out["profiles"][1]["relevance"] == "Alta"
+    assert len(out["profiles"]) <= 8
 
 
 def test_translator_prompt(monkeypatch):
@@ -109,3 +136,35 @@ def test_translator_prompt(monkeypatch):
     assert tr.translate("Hello world") == "traducido"
     assert "Hello world" in captured["prompt"]
     assert "Traduce el siguiente contenido al español" in captured["prompt"]
+
+
+def test_openrouter_client(monkeypatch):
+    from app.ollama.client import OpenRouterClient
+
+    class FakeResp:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}]}
+
+    captured = {}
+
+    def fake_post(url, **kwargs):
+        captured["url"] = url
+        captured["headers"] = kwargs.get("headers", {})
+        captured["payload"] = kwargs.get("json", {})
+        return FakeResp()
+
+    monkeypatch.setattr("app.ollama.client.requests.post", fake_post)
+    client = OpenRouterClient("KEY123", "moonshotai/kimi-k2:online", timeout=30)
+    out = client.generate_json("prompt")
+    assert out == {"ok": True}
+    assert captured["url"].endswith("/chat/completions")
+    assert captured["headers"]["Authorization"] == "Bearer KEY123"
+    assert captured["payload"]["model"] == "moonshotai/kimi-k2:online"
+
+    # Sin API key -> error claro
+    client2 = OpenRouterClient("", "modelo")
+    with pytest.raises(OllamaError, match="OPENROUTER_API_KEY"):
+        client2.generate("p")

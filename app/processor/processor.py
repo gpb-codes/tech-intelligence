@@ -6,12 +6,13 @@ from pathlib import Path
 
 from app.database import repository as repo
 from app.generator.markdown import NoteGenerator
-from app.ollama.client import OllamaClient, OllamaError
+from app.ollama.client import OllamaClient, OllamaError, OpenRouterClient
 from app.ollama.language import LanguageDetector, needs_translation
 from app.ollama.modules import (
     AlternativeDetector,
     Classifier,
     ImportanceAnalyzer,
+    InsightsGenerator,
     MetadataExtractor,
     Summarizer,
     Translator,
@@ -30,25 +31,37 @@ class ProcessResult:
         self.skipped_no_content = 0
 
 
+def build_client(settings):
+    """Crea el cliente de IA según el backend configurado (ollama | openrouter)."""
+    if settings.ai_backend == "openrouter":
+        return OpenRouterClient(
+            api_key=settings.openrouter_api_key,
+            model=settings.openrouter_model,
+            timeout=settings.openrouter_timeout,
+            temperature=settings.ollama_temperature,
+        )
+    return OllamaClient(
+        base_url=settings.ollama_base_url,
+        model=settings.ollama_model,
+        timeout=settings.ollama_timeout,
+        temperature=settings.ollama_temperature,
+    )
+
+
 class Processor:
-    """Orquesta la cadena: idioma -> traducción -> resumen -> clasificación -> extracción."""
+    """Orquesta la cadena: idioma -> traducción -> resumen -> clasificación -> extracción -> insights."""
 
     def __init__(self, conn: sqlite3.Connection, settings):
         self.conn = conn
         self.settings = settings
-        self.client = OllamaClient(
-            base_url=settings.ollama_base_url,
-            model=settings.ollama_model,
-            timeout=settings.ollama_timeout,
-            temperature=settings.ollama_temperature,
-        )
+        self.client = build_client(settings)
         prompts_dir: Path = settings.prompts_dir
         self.detector = LanguageDetector()
         self.notes = NoteGenerator(self.conn, settings)
         self.set_client(self.client)
 
     def set_client(self, client) -> None:
-        """Sustituye el cliente Ollama y reconstruye los módulos (tests, cambio de modelo)."""
+        """Sustituye el cliente de IA y reconstruye los módulos (tests, cambio de modelo/backend)."""
         self.client = client
         self.translator = Translator(client, self.settings.prompts_dir)
         self.summarizer = Summarizer(client, self.settings.prompts_dir)
@@ -56,6 +69,7 @@ class Processor:
         self.extractor = MetadataExtractor(client, self.settings.prompts_dir)
         self.importance = ImportanceAnalyzer(client, self.settings.prompts_dir)
         self.alternatives = AlternativeDetector(client, self.settings.prompts_dir)
+        self.insights = InsightsGenerator(client, self.settings.prompts_dir)
 
     # ------------------------------------------------------------------
 
@@ -138,8 +152,18 @@ class Processor:
         # 7. Alternativas
         alternatives = self.alternatives.detect(working_content)
 
+        # 7.5. Informe profesional (qué es, ayuda al desarrollo, relevancia por rol)
+        insights = {}
+        try:
+            insights = self.insights.generate(f"{title}\n\n{working_content}")
+            logger.info("Artículo %s: insights OK (%d perfiles)", article_id, len(insights.get("profiles") or []))
+        except OllamaError as e:
+            logger.warning("Artículo %s: insights fallaron (%s) -> se omite la sección", article_id, e)
+            err_log.error("Insights artículo %s: %s", article_id, e)
+
         result = {
-            "model": self.settings.ollama_model,
+            "model": self.settings.ollama_model if self.settings.ai_backend == "ollama" else self.settings.openrouter_model,
+            "backend": self.settings.ai_backend,
             "language": lang,
             "translated": translated,
             "translation": working_content if translated else None,
@@ -147,6 +171,7 @@ class Processor:
             "classification": {**classification, **importance,
                                "alternatives": alternatives, "extracted": metadata},
             "metadata": metadata,
+            "insights": insights,
         }
         repo.save_result(self.conn, article_id, result)
 

@@ -4,10 +4,18 @@
 # ============================================================
 
 settings:
+  # Backend de IA: ollama (local, privado) | openrouter (cloud, con web search si el modelo es :online)
+  ai:
+    backend: ollama
+    # Solo para backend openrouter:
+    openrouter_api_key: ""
+    openrouter_model: "moonshotai/kimi-k2:online"
+    openrouter_timeout: 180
+
   ollama:
     base_url: http://localhost:11434
-    model: llama3.1
-    timeout: 120
+    model: llama3.2:1b
+    timeout: 300
     temperature: 0.1
 
   vault_path: ./vault

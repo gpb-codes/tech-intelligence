@@ -19,11 +19,19 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 @dataclass
 class Settings:
+    # IA: backend activo (ollama | openrouter)
+    ai_backend: str = "ollama"
+
     # Ollama
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.1"
     ollama_timeout: int = 120
     ollama_temperature: float = 0.1
+
+    # OpenRouter
+    openrouter_api_key: str = ""
+    openrouter_model: str = "deepseek/deepseek-chat"
+    openrouter_timeout: int = 180
 
     # Rutas
     vault_path: Path = field(default_factory=lambda: PROJECT_ROOT / "vault")
@@ -86,7 +94,12 @@ def load_settings(env_path: Path | None = None) -> Settings:
     if cfg_file.exists():
         with open(cfg_file, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
+        ai = data.get("settings", {}).get("ai") or {}
         o = (data.get("settings") or {}).get("ollama") or {}
+        s.ai_backend = ai.get("backend", s.ai_backend)
+        s.openrouter_api_key = ai.get("openrouter_api_key", s.openrouter_api_key)
+        s.openrouter_model = ai.get("openrouter_model", s.openrouter_model)
+        s.openrouter_timeout = int(ai.get("openrouter_timeout", s.openrouter_timeout))
         s.ollama_base_url = o.get("base_url", s.ollama_base_url)
         s.ollama_model = o.get("model", s.ollama_model)
         s.ollama_timeout = int(o.get("timeout", s.ollama_timeout))
@@ -106,12 +119,18 @@ def load_settings(env_path: Path | None = None) -> Settings:
         v = os.environ.get(name)
         return v if v not in (None, "", " ") else None
 
+    if v := _env("AI_BACKEND"):
+        s.ai_backend = v
     if v := _env("OLLAMA_BASE_URL"):
         s.ollama_base_url = v
     if v := _env("OLLAMA_MODEL"):
         s.ollama_model = v
     if v := _env("OLLAMA_TIMEOUT"):
         s.ollama_timeout = int(v)
+    if v := _env("OPENROUTER_API_KEY"):
+        s.openrouter_api_key = v
+    if v := _env("OPENROUTER_MODEL"):
+        s.openrouter_model = v
     if v := _env("VAULT_PATH"):
         s.vault_path = Path(_resolve(v, PROJECT_ROOT) or v)
     if v := _env("DATABASE_PATH"):

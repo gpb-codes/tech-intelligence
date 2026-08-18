@@ -157,3 +157,40 @@ class AlternativeDetector:
                 if name and confidence in ("high", "medium"):
                     alts.append({"name": name, "confidence": confidence})
         return alts[:6]
+
+
+class InsightsGenerator:
+    """Genera un mini informe profesional: qué es, ayuda al desarrollo y relevancia por rol."""
+
+    VALID_ROLES = ["Trainee", "Junior", "Semi-Senior", "Senior", "Ingeniero de Software",
+                   "Ingeniero en Redes", "DevOps / SRE", "Ciberseguridad"]
+    VALID_RELEVANCE = ["Alta", "Media", "Baja"]
+
+    def __init__(self, client: OllamaClient, prompts_dir: Path):
+        self.client = client
+        self.prompts_dir = prompts_dir
+
+    def generate(self, content: str) -> dict:
+        prompt = load_prompt(self.prompts_dir, "insights").replace("{{CONTENT}}", content)
+        data = self.client.generate_json(prompt)
+        return self._validate(data)
+
+    def _validate(self, data: dict) -> dict:
+        profiles = []
+        for item in data.get("profiles") or []:
+            if not isinstance(item, dict):
+                continue
+            role = str(item.get("role", "") or "").strip()
+            if not role:
+                continue
+            relevance = str(item.get("relevance", "Media") or "Media").strip()
+            if relevance not in self.VALID_RELEVANCE:
+                logger.warning("Relevancia inválida '%s' -> Media", relevance)
+                relevance = "Media"
+            must_know = [str(k).strip() for k in (item.get("must_know") or []) if str(k).strip()][:3]
+            profiles.append({"role": role, "relevance": relevance, "must_know": must_know})
+        return {
+            "what_is": str(data.get("what_is", "") or "").strip(),
+            "why_development": str(data.get("why_development", "") or "").strip(),
+            "profiles": profiles[:8],
+        }

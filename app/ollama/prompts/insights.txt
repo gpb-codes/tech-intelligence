@@ -1,0 +1,28 @@
+Genera un MINI INFORME profesional sobre la tecnología/producto del siguiente contenido tecnológico.
+
+Devuelve ÚNICAMENTE un objeto JSON válido con exactamente estas claves:
+
+{
+  "what_is": "",
+  "why_development": "",
+  "profiles": [
+    {
+      "role": "",
+      "relevance": "",
+      "must_know": []
+    }
+  ]
+}
+
+Reglas:
+- what_is: explicación breve (2-3 frases) de qué es la tecnología o producto.
+- why_development: 2-3 frases de en qué ayuda al desarrollo de software o sistemas.
+- profiles: mínimo 6 perfiles, uno por cada rol, con:
+  - role: uno de: "Trainee", "Junior", "Semi-Senior", "Senior", "Ingeniero de Software", "Ingeniero en Redes", "DevOps / SRE", "Ciberseguridad".
+  - relevance: nivel de relevancia para ese rol ("Alta", "Media", "Baja") según cuánto le afecte esta tecnología en su día a día.
+  - must_know: 1-3 cosas concretas que DEBE saber o en qué debe actualizarse ese rol con esta tecnología (hasta 10 palabras cada una).
+- Basa el informe SOLO en el contenido proporcionado y en conocimiento general de la tecnología; no inventes datos.
+- En español.
+
+Contenido:
+{{CONTENT}}

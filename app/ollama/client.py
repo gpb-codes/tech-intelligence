@@ -1,4 +1,9 @@
-"""Cliente HTTP de Ollama (API local, sin dependencias externas)."""
+"""Clientes HTTP para IA: Ollama local y OpenRouter (interfaz común).
+
+- OllamaClient: API local /api/generate (sin dependencias externas).
+- OpenRouterClient: API cloud /chat/completions (requiere OPENROUTER_API_KEY).
+Ambos exponen generate(), generate_json(), is_available().
+"""
 from __future__ import annotations
 
 import json
@@ -12,6 +17,29 @@ logger = get_logger("ollama")
 
 class OllamaError(Exception):
     pass
+
+
+def parse_json_loose(raw: str) -> dict:
+    """Parsea JSON tolerando código Markdown envolvente y errores menores."""
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = raw.strip("`")
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+    # Intentar extraer el primer {...} balanceado
+    start = raw.find("{")
+    end = raw.rfind("}")
+    if start != -1 and end > start:
+        try:
+            return json.loads(raw[start : end + 1])
+        except json.JSONDecodeError:
+            pass
+    raise OllamaError(f"La IA no devolvió JSON válido: {raw[:300]}")
 
 
 class OllamaClient:
@@ -99,24 +127,82 @@ class OllamaClient:
         return parse_json_loose(raw)
 
 
-def parse_json_loose(raw: str) -> dict:
-    """Parsea JSON tolerando código Markdown envolvente y errores menores."""
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = raw.strip("`")
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError:
-        pass
-    # Intentar extraer el primer {...} balanceado
-    start = raw.find("{")
-    end = raw.rfind("}")
-    if start != -1 and end > start:
+class OpenRouterClient:
+    """Cliente para OpenRouter (chat completions compatible con OpenAI).
+
+    Usa web search automáticamente si el modelo tiene sufijo ":online"
+    (ej. "moonshotai/kimi-k2:online"), lo que permite investigar en internet.
+    """
+
+    BASE_URL = "https://openrouter.ai/api/v1"
+
+    def __init__(self, api_key: str, model: str, timeout: int = 120, temperature: float = 0.1):
+        self.api_key = api_key
+        self.model = model
+        self.timeout = timeout
+        self.temperature = temperature
+
+    # ------------------------------------------------------------------
+
+    def is_available(self, timeout: int = 5) -> bool:
         try:
-            return json.loads(raw[start : end + 1])
-        except json.JSONDecodeError:
-            pass
-    raise OllamaError(f"Ollama no devolvió JSON válido: {raw[:300]}")
+            resp = requests.get(f"{self.BASE_URL}/models", timeout=timeout)
+            return resp.status_code == 200
+        except requests.RequestException:
+            return False
+
+    def _chat(self, prompt: str, system: str | None, format_json: bool) -> str:
+        if not self.api_key:
+            raise OllamaError("OPENROUTER_API_KEY no está configurada (.env)")
+        if not self.model:
+            raise OllamaError("OPENROUTER_MODEL no está configurado (.env)")
+
+        messages = []
+        if system:
+            messages.append({"role": "system", "content": system})
+        messages.append({"role": "user", "content": prompt})
+
+        payload: dict = {
+            "model": self.model,
+            "messages": messages,
+            "temperature": self.temperature,
+        }
+        if format_json:
+            payload["response_format"] = {"type": "json_object"}
+
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+
+        logger.info("OpenRouter generate: model=%s, prompt_len=%d", self.model, len(prompt))
+        try:
+            resp = requests.post(
+                f"{self.BASE_URL}/chat/completions",
+                json=payload,
+                headers=headers,
+                timeout=self.timeout,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+        except requests.Timeout as e:
+            raise OllamaError(f"Timeout de OpenRouter ({self.timeout}s): {e}") from e
+        except requests.RequestException as e:
+            raise OllamaError(f"Error de conexión con OpenRouter: {e}") from e
+        except json.JSONDecodeError as e:
+            raise OllamaError(f"Respuesta no JSON de OpenRouter: {e}") from e
+
+        try:
+            response = data["choices"][0]["message"]["content"]
+        except (KeyError, IndexError, TypeError) as e:
+            raise OllamaError(f"Respuesta inesperada de OpenRouter: {data}") from e
+        if not response.strip():
+            raise OllamaError("OpenRouter devolvió una respuesta vacía")
+        return response.strip()
+
+    def generate(self, prompt: str, system: str | None = None, format_json: bool = False) -> str:
+        return self._chat(prompt, system, format_json)
+
+    def generate_json(self, prompt: str, system: str | None = None) -> dict:
+        raw = self._chat(prompt, system, format_json=True)
+        return parse_json_loose(raw)
