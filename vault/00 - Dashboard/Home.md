@@ -7,10 +7,10 @@ cssclasses: [ti-dashboard]
 
 # 🛰️ Tech Intelligence
 
-_Actualizado: 2026-08-18 07:26 UTC · Sistema local-first · Procesado con Ollama_
+_Actualizado: 2026-08-18 07:53 UTC · Sistema local-first · Procesado con Ollama_
 
 > [!info] Estado del sistema
-> - **2418** artículos en la base · **10** procesados · **1236** pendientes · **206** fallidos
+> - **2429** artículos en la base · **10** procesados · **642** pendientes · **802** fallidos
 > - **22** fuentes activas · Vault versionado en Git
 
 ## 🔥 Últimas actualizaciones
