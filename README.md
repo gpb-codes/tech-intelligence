@@ -285,6 +285,20 @@ alternatives: [...]
 - El Dashboard (`00 - Dashboard/Home.md`) funciona con Dataview **y** sin plugins (fallback con listas estáticas).
 - Abrir Obsidian → "Open folder as vault" → carpeta `vault/`.
 
+### Plugins y tema incluidos en el Vault
+
+El Vault ya viene con plugins de la comunidad instalados y habilitados (en `vault/.obsidian/`):
+
+| Plugin | Uso | Id |
+| --- | --- | --- |
+| **Dataview** | Consultas sobre las notas: Dashboard, Radar, tablas dinámicas | `dataview` |
+| **obsidian-git** | Auto-commit y auto-push del Vault a GitHub desde Obsidian | `obsidian-git` |
+| **Templater** | Plantillas avanzadas con variables y JS | `templater-obsidian` |
+
+- Tema **Minimal** + snippet CSS propio `tech-intelligence.css` (callouts, badges, tablas).
+- obsidian-git: auto-backup cada 10 min, auto-push cada 30 min, pull al abrir.
+- Si Obsidian no reconoce los plugins, usa "Community plugins" → "Turn on community plugins" y actívalos manualmente (ya están en la carpeta correcta).
+
 ## JSONL
 
 `vault/13 - Dataset/`: `all.jsonl`, `updates.jsonl`, `tools.jsonl`, `models.jsonl`, `companies.jsonl`, `alternatives.jsonl`. Una línea = un objeto. Sirve para RAG, análisis, búsqueda semántica o fine-tuning experimental futuro (sin entrenamiento automático).
@@ -296,6 +310,7 @@ alternatives: [...]
 - No se crean commits vacíos.
 - **Nunca** se ejecutan automáticamente `push --force`, `reset --hard` ni `clean -fd`.
 - Se versionan: Markdown, JSONL, configuración, templates. No se versionan: SQLite, logs, `.env`.
+- Repo público: https://github.com/gpb-codes/tech-intelligence (creado con `gh repo create`).
 
 ## CLI
 
