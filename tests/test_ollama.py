@@ -172,6 +172,19 @@ def test_openrouter_client(monkeypatch):
         client2.generate("p")
 
 
+def test_build_client_hybrid(monkeypatch):
+    from app.processor.processor import build_client
+    from app.utils.config import Settings
+
+    s = Settings(ai_backend="openrouter", hybrid_ollama=True, processing_workers=3,
+                 openrouter_models=["m1", "m2", "m3"], ollama_model="llama3.2:1b")
+    # Workers 0-2: OpenRouter; worker 3 (extra): Ollama local
+    assert type(build_client(s, worker_index=0)).__name__ == "OpenRouterClient"
+    assert type(build_client(s, worker_index=2)).__name__ == "OpenRouterClient"
+    assert type(build_client(s, worker_index=3)).__name__ == "OllamaClient"
+    assert build_client(s, worker_index=3).model == "llama3.2:1b"
+
+
 def test_openrouter_multiple_models_rotation(monkeypatch):
     from app.ollama.client import OpenRouterClient
 

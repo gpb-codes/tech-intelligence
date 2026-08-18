@@ -57,8 +57,10 @@ def cmd_process(args) -> int:
         print(f"Artículo {args.id}: {'OK' if ok else 'pendiente/falló (revisar logs)'}")
         return 0 if ok else 1
 
-    result = processor.process_pending(failed=args.failed, all_articles=args.all,
-                                       workers=args.workers or settings.processing_workers)
+    workers = args.workers or settings.processing_workers
+    if settings.hybrid_ollama and not args.workers:
+        workers = settings.processing_workers + 1
+    result = processor.process_pending(failed=args.failed, all_articles=args.all, workers=workers)
     print(f"Procesados: {result.processed} | Fallidos: {result.failed} | Pendientes: {result.pending}")
     return 0
 

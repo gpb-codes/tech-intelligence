@@ -48,6 +48,7 @@ class Settings:
     max_processing_attempts: int = 3
     long_content_chars: int = 15000
     processing_workers: int = 3
+    hybrid_ollama: bool = False  # añade un worker extra con Ollama local (llama)
 
     # Git
     git_enabled: bool = True
@@ -115,6 +116,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.max_processing_attempts = int(data.get("settings", {}).get("max_processing_attempts", s.max_processing_attempts))
         s.long_content_chars = int(data.get("settings", {}).get("long_content_chars", s.long_content_chars))
         s.processing_workers = int(data.get("settings", {}).get("processing_workers", s.processing_workers))
+        s.hybrid_ollama = bool(data.get("settings", {}).get("hybrid_ollama", s.hybrid_ollama))
         s.git_enabled = bool(data.get("settings", {}).get("git_enabled", s.git_enabled))
         s.git_commit_prefix = data.get("settings", {}).get("git_commit_prefix", s.git_commit_prefix)
 
@@ -151,5 +153,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
         s.max_processing_attempts = int(v)
     if v := _env("PROCESSING_WORKERS"):
         s.processing_workers = int(v)
+    if v := _env("HYBRID_OLLAMA"):
+        s.hybrid_ollama = v.lower() in ("1", "true", "yes", "si")
 
     return s

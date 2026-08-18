@@ -35,6 +35,8 @@ settings:
   max_processing_attempts: 3
   long_content_chars: 15000  # contenido más largo -> Inbox/Sources
   processing_workers: 3      # artículos procesados en paralelo
+  # Añade un worker extra con Ollama local (llama3.2:1b) en paralelo a OpenRouter
+  hybrid_ollama: true
 
   # Git
   git_enabled: true

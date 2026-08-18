@@ -31,8 +31,28 @@ class ProcessResult:
         self.skipped_no_content = 0
 
 
-def build_client(settings):
-    """Crea el cliente de IA según el backend configurado (ollama | openrouter)."""
+def build_client(settings, worker_index: int = 0):
+    """Crea el cliente de IA según el backend configurado (ollama | openrouter).
+
+    Con hybrid_ollama=True, el último worker usa Ollama local (llama) en
+    paralelo con los de OpenRouter.
+    """
+    if settings.ai_backend == "openrouter" and settings.hybrid_ollama:
+        # El worker extra (último) usa Ollama local; el resto OpenRouter
+        total = settings.processing_workers + 1
+        if worker_index == total - 1:
+            return OllamaClient(
+                base_url=settings.ollama_base_url,
+                model=settings.ollama_model,
+                timeout=settings.ollama_timeout,
+                temperature=settings.ollama_temperature,
+            )
+        return OpenRouterClient(
+            api_key=settings.openrouter_api_key,
+            models=settings.openrouter_models or [settings.openrouter_model],
+            timeout=settings.openrouter_timeout,
+            temperature=settings.ollama_temperature,
+        )
     if settings.ai_backend == "openrouter":
         models = settings.openrouter_models or [settings.openrouter_model]
         return OpenRouterClient(
@@ -223,10 +243,13 @@ class Processor:
         from concurrent.futures import ThreadPoolExecutor
         from app.database.connection import get_connection
 
-        def _worker(chunk: list[dict]) -> ProcessResult:
+        def _worker(args) -> ProcessResult:
+            chunk, worker_index = args
             conn = get_connection(self.settings.database_path)
             try:
                 worker = Processor(conn, self.settings)
+                worker.client = build_client(self.settings, worker_index=worker_index)
+                worker.set_client(worker.client)
                 local = ProcessResult()
                 for article in chunk:
                     worker._process_one(article["id"], local)
@@ -239,7 +262,7 @@ class Processor:
             chunks[i % workers].append(article)
 
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            for local in pool.map(_worker, chunks):
+            for local in pool.map(_worker, [(c, i) for i, c in enumerate(chunks)]):
                 result.processed += local.processed
                 result.failed += local.failed
                 result.pending += local.pending
