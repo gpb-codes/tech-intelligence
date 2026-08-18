@@ -6,7 +6,7 @@ import sqlite3
 from pathlib import Path
 
 from app.database import repository as repo
-from app.ollama.client import OllamaClient
+from app.ollama.client import OllamaClient, OpenRouterClient
 from app.utils.logging import get_logger
 
 logger = get_logger("collector")
@@ -42,15 +42,23 @@ def run_health(conn: sqlite3.Connection, settings) -> HealthReport:
     except sqlite3.Error as e:
         report.add("SQLite", False, str(e))
 
-    # Ollama
-    client = OllamaClient(settings.ollama_base_url, settings.ollama_model,
-                          timeout=settings.ollama_timeout)
-    if client.is_available():
-        installed = client.model_installed()
-        detail = f"{settings.ollama_model} {'instalado' if installed else 'NO instalado'}"
-        report.add("Ollama", installed, detail)
+    # IA (backend configurado: Ollama local u OpenRouter)
+    if settings.ai_backend == "openrouter":
+        client = OpenRouterClient(settings.openrouter_api_key, settings.openrouter_model,
+                                  timeout=settings.ollama_timeout)
+        if client.is_available():
+            report.add("OpenRouter", True, f"{settings.openrouter_model} (web search: {':online' in settings.openrouter_model})")
+        else:
+            report.add("OpenRouter", False, "sin conexión con openrouter.ai")
     else:
-        report.add("Ollama", False, f"sin conexión en {settings.ollama_base_url}")
+        client = OllamaClient(settings.ollama_base_url, settings.ollama_model,
+                              timeout=settings.ollama_timeout)
+        if client.is_available():
+            installed = client.model_installed()
+            detail = f"{settings.ollama_model} {'instalado' if installed else 'NO instalado'}"
+            report.add("Ollama", installed, detail)
+        else:
+            report.add("Ollama", False, f"sin conexión en {settings.ollama_base_url}")
 
     # Vault
     vault = Path(settings.vault_path)
