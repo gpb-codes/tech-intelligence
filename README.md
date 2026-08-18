@@ -196,12 +196,15 @@ sources:
 
 > Las URLs incluidas fueron verificadas (HTTP 200). Fuentes sin feed oficial verificable quedan marcadas `enabled: false` (pendientes).
 
-### Cambiar de modelo
-
-Editar `OLLAMA_MODEL` en `.env` y volver a procesar:
+### Cambiar de modelo / backend de IA
 
 ```bash
-tech-intelligence process --all   # re-procesa con el nuevo modelo
+# En .env:
+#   OLLAMA_MODEL=llama3.2:1b    (rápido) | llama3.1 (mejor calidad, más lento)
+#   AI_BACKEND=openrouter       # cloud con búsqueda web (requiere OPENROUTER_API_KEY)
+#   OPENROUTER_MODEL=moonshotai/kimi-k2:online
+docker compose up -d            # recrea el contenedor con la nueva config
+docker compose exec collector tech-intelligence process --all   # re-procesa con el nuevo modelo
 ```
 
 ### Agregar fuentes
@@ -282,8 +285,20 @@ alternatives: [...]
 - Importancia `low` → `01 - Inbox/Review/`.
 - Contenido muy largo (> 15000 chars) → `01 - Inbox/Sources/<fuente>/` con enlace desde la nota.
 - El contenido original nunca se pierde (sección "Contenido original").
+- **Informe para desarrolladores**: cada nota incluye una sección `📊 Informe para desarrolladores` con "¿Qué es?", "¿En qué ayuda al desarrollo?" y una tabla de relevancia por perfil (Trainee, Junior, Semi-Senior, Senior, Ingeniero de Software, Ingeniero en Redes, DevOps/SRE, Ciberseguridad) generada por la IA con el prompt `app/ollama/prompts/insights.txt`.
 - El Dashboard (`00 - Dashboard/Home.md`) funciona con Dataview **y** sin plugins (fallback con listas estáticas).
 - Abrir Obsidian → "Open folder as vault" → carpeta `vault/`.
+
+### Backend de IA: Ollama local u OpenRouter
+
+El sistema admite dos backends configurables en `.env`:
+
+| Variable | Valor | Efecto |
+| --- | --- | --- |
+| `AI_BACKEND=ollama` | Local y privado | Usa `OLLAMA_MODEL` (ej. `llama3.2:1b`) |
+| `AI_BACKEND=openrouter` | Cloud | Usa `OPENROUTER_MODEL`; los modelos con sufijo `:online` (ej. `moonshotai/kimi-k2:online`) hacen **búsqueda web real** para el informe profesional |
+
+Para OpenRouter solo necesitas la API key (`OPENROUTER_API_KEY`) y elegir modelo; el resto del pipeline es idéntico. Con Ollama local el informe usa el conocimiento del modelo (sin búsqueda en vivo).
 
 ### Plugins y tema incluidos en el Vault
 
