@@ -30,7 +30,9 @@ class Scheduler:
         if self.lock_path.exists():
             try:
                 pid = int(self.lock_path.read_text().strip())
-                if _pid_alive(pid):
+                # PID propio: lock de un ciclo anterior (o del contenedor previo,
+                # donde el scheduler siempre es PID 1) -> obsoleto.
+                if pid != os.getpid() and _pid_alive(pid):
                     logger.warning("Otro proceso del scheduler está activo (pid %s). Saltando ciclo.", pid)
                     return False
             except (ValueError, OSError):
