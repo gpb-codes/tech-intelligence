@@ -205,9 +205,9 @@ class OpenRouterClient:
                     headers=headers,
                     timeout=self.timeout,
                 )
-                if resp.status_code == 429:
+                if resp.status_code in (429, 502, 503, 504):
                     first_error = OllamaError(
-                        f"Rate limit de la API en {model}: {resp.text[:200]}")
+                        f"Rate limit/sobrecarga de la API en {model} (HTTP {resp.status_code}): {resp.text[:200]}")
                     continue
                 resp.raise_for_status()
                 data = resp.json()
