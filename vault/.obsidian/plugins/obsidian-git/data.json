@@ -1,0 +1,15 @@
+{
+  "autoSaveInterval": 10,
+  "autoBackupAfterFileChange": false,
+  "autoPullOnBoot": true,
+  "autoPushInterval": 30,
+  "commitMessage": "obsidian-git: vault sync {{date}}",
+  "commitDateFormat": "YYYY-MM-DD HH:mm:ss",
+  "pullBeforePush": true,
+  "pushOnBackup": true,
+  "showStatusBar": true,
+  "updateAuthor": true,
+  "author": "tech-intelligence",
+  "synchronizeHiddenFiles": true,
+  "notifyObservers": true
+}

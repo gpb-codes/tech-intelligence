@@ -1,1 +1,8 @@
-{}
+{
+  "cssTheme": "Minimal",
+  "enabledCssSnippets": [
+    "tech-intelligence"
+  ],
+  "baseFontSize": 16,
+  "accentColor": "#7c5cff"
+}

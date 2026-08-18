@@ -1,0 +1,16 @@
+Resume el siguiente contenido tecnológico en español.
+
+El resumen debe:
+- ser preciso;
+- ser objetivo;
+- identificar qué ocurrió;
+- identificar qué producto o tecnología está involucrado;
+- identificar por qué es relevante;
+- no inventar información;
+- no especular;
+- no introducir información externa.
+
+Máximo 5 puntos. Formato: lista de viñetas Markdown (- ...). Solo devuelve las viñetas.
+
+Contenido:
+{{CONTENT}}

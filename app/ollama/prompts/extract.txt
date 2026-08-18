@@ -1,0 +1,28 @@
+Extrae los datos técnicos del siguiente contenido tecnológico.
+
+Devuelve ÚNICAMENTE un objeto JSON válido con exactamente estas claves:
+
+{
+  "version": "",
+  "release_date": "",
+  "price": "",
+  "license": "",
+  "urls": [],
+  "requirements": "",
+  "breaking_changes": "",
+  "keywords": []
+}
+
+Reglas:
+- version: versión exacta si se menciona, sino "".
+- release_date: fecha de lanzamiento si se menciona, sino "".
+- price: precio exacto si se menciona (ej. "$20/mes"), sino "".
+- license: licencia si se menciona, sino "".
+- urls: lista de URLs relevantes mencionadas.
+- requirements: requisitos técnicos si se mencionan, sino "".
+- breaking_changes: cambios incompatibles si se mencionan, sino "".
+- keywords: 3-6 palabras clave cortas.
+- No inventes nada que no esté en el contenido.
+
+Contenido:
+{{CONTENT}}

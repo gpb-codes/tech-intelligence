@@ -1,0 +1,1 @@
+"""Generador de conocimiento: notas Markdown, dashboard, JSONL."""

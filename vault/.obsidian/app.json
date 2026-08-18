@@ -1,1 +1,12 @@
-{}
+{
+  "baseFontSize": 16,
+  "attachmentFolderPath": "99 - System/attachments",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "01 - Inbox",
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": false,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "showLineNumber": false,
+  "useMarkdownLinks": false
+}

@@ -1,0 +1,27 @@
+# ============================================================
+# Tech Intelligence — configuración general
+# Los valores de entorno (.env) tienen prioridad sobre estos.
+# ============================================================
+
+settings:
+  ollama:
+    base_url: http://localhost:11434
+    model: llama3.1
+    timeout: 120
+    temperature: 0.1
+
+  vault_path: ./vault
+  database_path: ./database/tech_intelligence.db
+  log_dir: ./logs
+  log_level: INFO
+
+  # Scheduler: minutos entre ciclos completos
+  sync_interval: 60
+
+  # Procesamiento
+  max_processing_attempts: 3
+  long_content_chars: 15000  # contenido más largo -> Inbox/Sources
+
+  # Git
+  git_enabled: true
+  git_commit_prefix: "tech-intelligence: sync"

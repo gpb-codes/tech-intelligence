@@ -1,0 +1,63 @@
+# ============================================================
+# Tech Intelligence — categorías
+# Estas son las categorías válidas que Ollama puede asignar.
+# La carpeta destino en el Vault se deriva de la categoría.
+# ============================================================
+
+categories:
+  - id: AI
+    name: AI
+    folder: "02 - Updates/AI"
+
+  - id: Developer Tools
+    name: Developer Tools
+    folder: "02 - Updates/Developer Tools"
+
+  - id: Open Source
+    name: Open Source
+    folder: "02 - Updates/Open Source"
+
+  - id: Cloud
+    name: Cloud
+    folder: "02 - Updates/Cloud"
+
+  - id: Cybersecurity
+    name: Cybersecurity
+    folder: "02 - Updates/Cybersecurity"
+
+  - id: Hardware
+    name: Hardware
+    folder: "02 - Updates/Hardware"
+
+  - id: Productivity
+    name: Productivity
+    folder: "02 - Updates/Productivity"
+
+  - id: General Tech
+    name: General Tech
+    folder: "02 - Updates/General Tech"
+
+# Importancia
+importance_levels:
+  - critical
+  - high
+  - medium
+  - low
+
+# Valores de precio válidos (nunca inferir sin evidencia)
+pricing_values:
+  - free
+  - freemium
+  - free-tier
+  - paid
+  - open-source
+  - self-hosted
+  - enterprise
+  - unknown
+
+# Radar (Thinking Adopt TRIAL Assess Hold)
+radar_rings:
+  - ADOPT
+  - TRIAL
+  - ASSESS
+  - HOLD

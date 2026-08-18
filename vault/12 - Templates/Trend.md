@@ -1,27 +1,49 @@
 ---
 type: template
 title: Trend
-desc: Plantilla para una tendencia tecnológica
+desc: Plantilla para una tendencia / tema del Radar
 ---
 
 ---
 type: trend
-name: ""
-status: ASSESS
+title: ""
+aliases: []
 category: ""
+status: ASSESS
+ring: ASSESS
 evidence: []
+related: []
 tags: []
+created: ""
+updated: ""
+cssclasses: [ti-note]
 ---
 
-# {{name}}
+# {{title}}
+
+`📡 Tendencia` · `🟡 ASSESS`
+
+## Qué es
+
+> [!abstract] En una frase
+> 
 
 ## Evidencia
 
-## Evaluación
+> [!quote] 
+> - 
 
-## Radar
+## Señales
 
-- **ADOPT**: usar de forma estándar
-- **TRIAL**: probar en proyectos controlados
-- **ASSESS**: investigar antes de decidir
-- **HOLD**: esperar / no adoptar aún
+> [!important] 
+> - 
+
+## Relacionados
+
+- 
+
+## Decisiones
+
+- [ ] Evaluar
+- [ ] Probar
+- [ ] Adoptar

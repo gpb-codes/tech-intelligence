@@ -1,0 +1,31 @@
+Clasifica el siguiente contenido tecnológico.
+
+Devuelve ÚNICAMENTE un objeto JSON válido con exactamente estas claves:
+
+{
+  "company": "",
+  "product": "",
+  "category": "",
+  "subcategory": "",
+  "pricing": "",
+  "license": "",
+  "open_source": false,
+  "self_hosted": false,
+  "tags": []
+}
+
+Reglas:
+- company: empresa responsable ("" si no se identifica).
+- product: producto o tecnología principal ("" si no se identifica).
+- category: una de: AI, Developer Tools, Open Source, Cloud, Cybersecurity, Hardware, Productivity, General Tech.
+- subcategory: subcategoría libre o "".
+- pricing: uno de: free, freemium, free-tier, paid, open-source, self-hosted, enterprise, unknown.
+  NUNCA infieras un precio si la fuente no lo indica: usa "unknown".
+- license: licencia si se menciona explícitamente, sino "unknown".
+- open_source: true SOLO si hay evidencia explícita en el contenido.
+- self_hosted: true SOLO si hay evidencia explícita en el contenido.
+- tags: 3-6 tags cortos en minúsculas.
+- No inventes información que no esté en el contenido.
+
+Contenido:
+{{CONTENT}}

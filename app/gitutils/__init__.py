@@ -1,0 +1,1 @@
+"""Integración Git con seguridad (sin push/force/reset)."""

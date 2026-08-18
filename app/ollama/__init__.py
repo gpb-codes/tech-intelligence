@@ -1,0 +1,1 @@
+"""Integración con Ollama (único proveedor de IA)."""

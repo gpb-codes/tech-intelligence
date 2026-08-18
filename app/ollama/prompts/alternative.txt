@@ -1,0 +1,24 @@
+Identifica posibles alternativas al producto principal del siguiente contenido tecnológico.
+
+Reglas estrictas:
+- Solo menciona alternativas REALES y conocidas del ecosistema.
+- NO afirmes que una herramienta es alternativa si la evidencia no es suficiente.
+- Si no hay evidencia suficiente, devuelve una lista vacía.
+
+Devuelve ÚNICAMENTE un objeto JSON válido:
+
+{
+  "alternatives": [
+    {"name": "", "confidence": "high"},
+    {"name": "", "confidence": "medium"}
+  ]
+}
+
+confidence:
+- "high": alternativa clara y establecida para el mismo propósito.
+- "medium": alternativa plausible pero menos directa.
+
+No inventes herramientas. No incluyas el producto mencionado como alternativa de sí mismo.
+
+Producto / contenido:
+{{CONTENT}}

@@ -1,28 +1,45 @@
 ---
 type: template
 title: Pricing Change
-desc: Plantilla para un cambio de precio
+desc: Plantilla para un cambio de precios
 ---
 
 ---
 type: pricing
-product: ""
+title: ""
+aliases: []
 company: ""
-previous_price: ""
+product: ""
+old_price: ""
 new_price: ""
+currency: ""
 effective_date: ""
 announced_date: ""
-source: ""
-confidence: medium
+impact: medium
 tags: []
+created: ""
+updated: ""
+cssclasses: [ti-note]
 ---
 
-# Cambio de precio: {{product}}
+# {{title}}
 
-## Anuncio
+`💸 Cambio de precio` · `🚀 Alto impacto`
 
-## Nuevo precio
+## Cambio
 
-## Antes
+| | Antes | Ahora |
+| --- | --- | --- |
+| Precio | {{old_price}} | {{new_price}} |
 
 ## Contexto
+
+> [!info] 
+> 
+
+## Implicaciones
+
+> [!important] 
+> - 
+
+## Fuente

@@ -1,0 +1,22 @@
+Traduce el siguiente contenido al español.
+
+Reglas:
+- Mantén exactamente el significado.
+- No inventes información.
+- No agregues información.
+- Conserva nombres propios.
+- Conserva nombres de productos.
+- Conserva nombres de empresas.
+- Conserva versiones.
+- Conserva fechas.
+- Conserva precios.
+- Conserva URLs.
+- Conserva código.
+- Conserva comandos.
+- Conserva términos técnicos cuando sea mejor mantenerlos en inglés.
+- No traduzcas nombres de productos o tecnologías.
+
+Devuelve únicamente la traducción.
+
+Contenido:
+{{CONTENT}}

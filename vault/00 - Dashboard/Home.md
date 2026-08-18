@@ -1,98 +1,131 @@
-# Tech Intelligence
+---
+type: dashboard
+title: Tech Intelligence
+aliases: [Inicio, Dashboard]
+cssclasses: [ti-dashboard]
+---
 
-_Actualizado: 2026-08-18 04:33 UTC · Sistema local-first · Procesado con Ollama_
+# 🛰️ Tech Intelligence
 
-## Últimas actualizaciones
+_Actualizado: 2026-08-18 04:42 UTC · Sistema local-first · Procesado con Ollama_
+
+> [!info] Estado del sistema
+> - **4** artículos en la base · **0** procesados · **4** pendientes · **0** fallidos
+> - **22** fuentes activas · Vault versionado en Git
+
+## 🔥 Últimas actualizaciones
 
 ```dataview
-TABLE date, importance, company, product, source FROM "02 - Updates" WHERE status = "published" SORT date DESC LIMIT 20
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", company AS "Empresa", product AS "Producto" FROM "02 - Updates" WHERE status = "published" AND example = false SORT date DESC LIMIT 20
 ```
 
 
 ## IA
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/IA" WHERE contains(category, "IA") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/IA" WHERE contains(category, "IA") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## Developer Tools
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/Developer Tools" WHERE contains(category, "Developer Tools") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Developer Tools" WHERE contains(category, "Developer Tools") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## Open Source
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/Open Source" WHERE contains(category, "Open Source") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Open Source" WHERE contains(category, "Open Source") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## Cloud
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/Cloud" WHERE contains(category, "Cloud") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Cloud" WHERE contains(category, "Cloud") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## Cybersecurity
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/Cybersecurity" WHERE contains(category, "Cybersecurity") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Cybersecurity" WHERE contains(category, "Cybersecurity") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## Hardware
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/Hardware" WHERE contains(category, "Hardware") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Hardware" WHERE contains(category, "Hardware") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## Productivity
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/Productivity" WHERE contains(category, "Productivity") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Productivity" WHERE contains(category, "Productivity") AND example = false SORT date DESC LIMIT 10
 ```
 
 
 ## General Tech
 
 ```dataview
-TABLE date, importance, product FROM "02 - Updates/General Tech" WHERE contains(category, "General Tech") SORT date DESC LIMIT 10
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/General Tech" WHERE contains(category, "General Tech") AND example = false SORT date DESC LIMIT 10
 ```
 
 
-## Cambios de precio
+## 💸 Cambios de precio
 
 ```dataview
-TABLE date, product, pricing FROM "02 - Updates" WHERE pricing != "unknown" AND pricing != "open-source" SORT date DESC LIMIT 15
+TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", product AS "Producto", pricing AS "Precio" FROM "02 - Updates" WHERE pricing != "unknown" AND pricing != "open-source" AND example = false SORT date DESC LIMIT 15
 ```
 
 
-## Nuevos modelos
+## 🧠 Nuevos modelos
 
 _Sin modelos detectados aún._
 
-## Alternativas gratuitas / open source
+## 🔁 Alternativas gratuitas / open source
 
 _Sin alternativas detectadas aún._
 
-## GitHub
+## 🐙 GitHub
 
 _Sin actividad de GitHub aún._
 
-## Tendencias / Investigación
+## 🔬 Tendencias / Investigación
 
 _Sin investigaciones detectadas aún._
 
-## Tech Radar
+## 🛰️ Tech Radar
 
 ```dataview
-TABLE status, category FROM "10 - Radar" SORT status DESC
+TABLE ring AS "Anillo", category AS "Categoría", file.link AS "Nota" FROM "10 - Radar" WHERE type = "trend" SORT ring ASC, date DESC
 ```
 
-Anillos: **ADOPT** · **TRIAL** · **ASSESS** · **HOLD**  
+Anillos: 🟢 **ADOPT** · 🔵 **TRIAL** · 🟡 **ASSESS** · 🔴 **HOLD**  
 _El Radar se actualiza manualmente en `10 - Radar/`._
+
+## 📊 Estadísticas
+
+```dataview
+TABLE length(rows) AS "Notas" FROM "02 - Updates" GROUP BY category SORT length(rows) DESC
+```
+
+## 🗂️ Navegación
+
+- 📁 `01 - Inbox/` — pendientes de revisión, fallidos y contenido largo
+- 📰 `02 - Updates/` — noticias procesadas por categoría
+- 🏢 `03 - Companies/` — perfiles de empresas
+- 🛠️ `04 - Tools/` — herramientas
+- 🔁 `05 - Alternatives/` — alternativas open source
+- 🧠 `06 - Models/` — modelos de IA
+- 💸 `07 - Pricing/` — cambios de precios
+- 🐙 `08 - Open Source/` — proyectos de GitHub
+- 🔬 `09 - Research/` — investigación y papers
+- 🛰️ `10 - Radar/` — Tech Radar
+- 📡 `11 - Sources/` — fuentes configuradas
+- 🧩 `12 - Templates/` — plantillas de notas
+- 💾 `13 - Dataset/` — exportaciones JSONL

@@ -1,28 +1,46 @@
 ---
 type: template
 title: Alternative
-desc: Plantilla para una alternativa (open source, gratuita, self-hosted)
+desc: Plantilla para una alternativa open source / gratuita
 ---
 
 ---
 type: alternative
-product: ""
-alternative: ""
-confidence: medium
-open_source: false
-free: false
+name: ""
+aliases: []
+replaces: ""
+url: ""
+repo: ""
+license: ""
+pricing: open-source
+open_source: true
 self_hosted: false
+platforms: []
 tags: []
+created: ""
+updated: ""
+cssclasses: [ti-note]
 ---
 
-# {{product}} → {{alternative}}
+# {{name}}
 
-## Comparación
+`🔁 Alternativa` · `🧡 Open source` · `💰 Gratis`
 
-| Aspecto | {{product}} | {{alternative}} |
-| ------- | ----------- | --------------- |
-| Precio  |             |                 |
-| Licencia|             |                 |
-| Self-hosted |          |                 |
+## Reemplaza a
 
-## Notas
+> [!warning] Alternativa a **{{replaces}}**
+> 
+
+## Qué es
+
+> [!abstract] En una frase
+> 
+
+## Precio
+
+> [!money] 🧡 Open source
+
+## Enlaces
+
+- Sitio: 
+- Repo:

@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tech-intelligence"
+version = "0.1.0"
+description = "Sistema local-first de inteligencia tecnológica: recopila, procesa con Ollama y organiza conocimiento en un Vault de Obsidian."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Tech Intelligence" }]
+keywords = ["rss", "github", "ollama", "obsidian", "sqlite", "ai", "intelligence"]
+dependencies = [
+    "requests>=2.31",
+    "feedparser>=6.0",
+    "PyYAML>=6.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+]
+
+[project.scripts]
+tech-intelligence = "app.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

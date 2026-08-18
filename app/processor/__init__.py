@@ -1,0 +1,1 @@
+"""Procesador: pipeline Ollama sobre artículos."""

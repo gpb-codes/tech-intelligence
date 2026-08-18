@@ -1,0 +1,1 @@
+"""Collector: adaptadores de fuentes y pipeline de recopilación."""

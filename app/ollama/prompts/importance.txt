@@ -1,0 +1,25 @@
+Analiza la importancia del siguiente contenido tecnológico.
+
+Devuelve ÚNICAMENTE un objeto JSON válido con exactamente estas claves:
+
+{
+  "importance": "",
+  "impact": "",
+  "audience": "",
+  "reasons": []
+}
+
+Reglas de importancia (elige una):
+- critical: vulnerabilidades graves, cambios que afectan ampliamente al ecosistema, lanzamientos disruptivos.
+- high: nuevos modelos importantes, grandes releases, cambios significativos de producto, cambios importantes de precio.
+- medium: mejoras relevantes, nuevas funcionalidades.
+- low: pequeños cambios, mantenimiento, actualizaciones menores.
+
+- impact: uno de: high, medium, low (impacto esperado en el ecosistema).
+- audience: a quién afecta (desarrolladores, empresas, usuarios finales, etc.), "" si no se sabe.
+- reasons: 1-3 razones breves basadas ÚNICAMENTE en el contenido.
+
+No especules. No inventes.
+
+Contenido:
+{{CONTENT}}

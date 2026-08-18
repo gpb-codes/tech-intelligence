@@ -1,0 +1,224 @@
+# ============================================================
+# Tech Intelligence — fuentes
+# type: rss | github | api
+# Las URLs fueron verificadas (HTTP 200) al momento de crear el
+# proyecto. Las fuentes sin feed oficial verificable quedan
+# marcadas como enabled: false (pendientes).
+# ============================================================
+
+sources:
+
+  # ----------------------------------------------------------
+  # RSS — blogs oficiales
+  # ----------------------------------------------------------
+  - id: openai-blog
+    name: OpenAI Blog
+    type: rss
+    enabled: true
+    url: "https://openai.com/news/rss.xml"
+    category: AI
+    priority: high
+
+  - id: google-ai-blog
+    name: Google AI Blog
+    type: rss
+    enabled: true
+    url: "https://blog.google/technology/ai/rss/"
+    category: AI
+    priority: high
+
+  - id: deepmind-blog
+    name: Google DeepMind Blog
+    type: rss
+    enabled: true
+    url: "https://deepmind.google/blog/rss.xml"
+    category: AI
+    priority: high
+
+  - id: huggingface-blog
+    name: Hugging Face Blog
+    type: rss
+    enabled: true
+    url: "https://huggingface.co/blog/feed.xml"
+    category: AI
+    priority: high
+
+  - id: github-blog
+    name: GitHub Blog
+    type: rss
+    enabled: true
+    url: "https://github.blog/feed/"
+    category: Developer Tools
+    priority: high
+
+  - id: python-blog
+    name: Python Blog
+    type: rss
+    enabled: true
+    url: "https://blog.python.org/feeds/posts/default?alt=rss"
+    category: Open Source
+    priority: medium
+
+  - id: kubernetes-blog
+    name: Kubernetes Blog
+    type: rss
+    enabled: true
+    url: "https://kubernetes.io/feed.xml"
+    category: Cloud
+    priority: medium
+
+  - id: cloudflare-blog
+    name: Cloudflare Blog
+    type: rss
+    enabled: true
+    url: "https://blog.cloudflare.com/rss/"
+    category: Cloud
+    priority: medium
+
+  - id: mozilla-blog
+    name: Mozilla Blog
+    type: rss
+    enabled: true
+    url: "https://blog.mozilla.org/feed/"
+    category: Open Source
+    priority: medium
+
+  - id: docker-blog
+    name: Docker Blog
+    type: rss
+    enabled: true
+    url: "https://www.docker.com/blog/feed/"
+    category: DevOps
+    priority: medium
+
+  - id: aws-blog
+    name: AWS News Blog
+    type: rss
+    enabled: true
+    url: "https://aws.amazon.com/blogs/aws/feed/"
+    category: Cloud
+    priority: medium
+
+  - id: devto
+    name: DEV Community
+    type: rss
+    enabled: true
+    url: "https://dev.to/feed"
+    category: General Tech
+    priority: low
+
+  - id: hn-frontpage
+    name: Hacker News (front page)
+    type: rss
+    enabled: true
+    url: "https://hnrss.org/frontpage"
+    category: General Tech
+    priority: medium
+
+  # ----------------------------------------------------------
+  # RSS — pendientes (sin feed oficial verificado)
+  # ----------------------------------------------------------
+  - id: anthropic-news
+    name: Anthropic News
+    type: rss
+    enabled: false
+    url: null
+    note: "Sin feed RSS oficial verificado (https://www.anthropic.com/news no expone feed). Pendiente."
+    category: AI
+    priority: high
+
+  - id: vercel-changelog
+    name: Vercel Changelog
+    type: rss
+    enabled: false
+    url: null
+    note: "El feed https://vercel.com/changelog/rss.xml responde 308. Pendiente de verificar URL final."
+    category: Developer Tools
+    priority: high
+
+  # ----------------------------------------------------------
+  # GitHub — releases (Atom feeds verificados)
+  # ----------------------------------------------------------
+  - id: gh-opencode
+    name: OpenCode (GitHub)
+    type: github
+    enabled: true
+    repository: sst/opencode
+    category: Developer Tools
+    priority: high
+
+  - id: gh-ollama
+    name: Ollama (GitHub)
+    type: github
+    enabled: true
+    repository: ollama/ollama
+    category: AI
+    priority: high
+
+  - id: gh-claude-code
+    name: Claude Code (GitHub)
+    type: github
+    enabled: true
+    repository: anthropics/claude-code
+    category: Developer Tools
+    priority: high
+
+  - id: gh-nextjs
+    name: Next.js (GitHub)
+    type: github
+    enabled: true
+    repository: vercel/next.js
+    category: Developer Tools
+    priority: medium
+
+  - id: gh-transformers
+    name: Hugging Face Transformers (GitHub)
+    type: github
+    enabled: true
+    repository: huggingface/transformers
+    category: AI
+    priority: medium
+
+  - id: gh-deepseek-v3
+    name: DeepSeek-V3 (GitHub)
+    type: github
+    enabled: true
+    repository: deepseek-ai/DeepSeek-V3
+    category: AI
+    priority: high
+
+  - id: gh-cursor
+    name: Cursor (GitHub)
+    type: github
+    enabled: true
+    repository: getcursor/cursor
+    category: Developer Tools
+    priority: medium
+
+  - id: gh-vscode
+    name: VS Code (GitHub)
+    type: github
+    enabled: true
+    repository: microsoft/vscode
+    category: Developer Tools
+    priority: medium
+
+  - id: gh-awesome
+    name: Awesome (GitHub)
+    type: github
+    enabled: true
+    repository: sindresorhus/awesome
+    category: Open Source
+    priority: low
+
+  # ----------------------------------------------------------
+  # API — genérica (ejemplo desactivado)
+  # ----------------------------------------------------------
+  - id: api-example
+    name: Ejemplo API genérica
+    type: api
+    enabled: false
+    url: null
+    note: "Plantilla para adaptadores API REST. Definir url, json_path y field mappings para usarla."
+    category: General Tech
+    priority: low

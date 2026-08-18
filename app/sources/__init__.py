@@ -1,0 +1,1 @@
+"""Módulo de fuentes: modelos y carga de configuración."""

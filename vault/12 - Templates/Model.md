@@ -7,22 +7,46 @@ desc: Plantilla para un modelo de IA
 ---
 type: model
 name: ""
+aliases: []
 company: ""
-version: ""
-release_date: ""
-context_window: ""
-parameters: ""
+family: ""
+params: ""
+context: ""
 license: ""
+open_source: false
 pricing: unknown
+release_date: ""
+repo: ""
+paper: ""
 tags: []
+created: ""
+updated: ""
+cssclasses: [ti-note]
 ---
 
 # {{name}}
 
-## Capacidades
+`🧠 Modelo` · `🧡 Open source`
 
-## Evaluaciones / Benchmarks
+## Qué es
 
-## Precio
+> [!abstract] En una frase
+> 
 
-## Disponibilidad
+## Especificaciones
+
+| Campo | Valor |
+| --- | --- |
+| Parámetros | |
+| Contexto | |
+| Licencia | |
+
+## Cobertura reciente
+
+```dataview
+TABLE date, version, importance FROM "02 - Updates" WHERE product = "{{name}}" OR contains(tags, "{{name}}") SORT date DESC LIMIT 10
+```
+
+## Paper / Repo
+
+-

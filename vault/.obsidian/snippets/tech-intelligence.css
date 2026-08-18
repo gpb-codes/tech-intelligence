@@ -1,0 +1,100 @@
+/* ============================================================
+   Tech Intelligence — estilos propios del Vault
+   ============================================================ */
+
+/* ---------- Badges (código inline como etiquetas) ---------- */
+.markdown-preview-view code,
+.markdown-source-view.mod-cm6 .cm-inline-code {
+  border-radius: 4px;
+}
+
+/* Badges tipo pill: ``🟢 Alta`` etc. */
+.markdown-preview-view p code,
+.markdown-source-view.mod-cm6 .cm-line .cm-inline-code {
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  font-size: 0.8em;
+}
+
+/* ---------- Callouts ---------- */
+.callout {
+  border-radius: 8px;
+}
+
+.callout[data-callout="abstract"] {
+  --callout-color: 139, 233, 253;
+  --callout-icon: lucide-clipboard-list;
+}
+
+.callout[data-callout="money"] {
+  --callout-color: 250, 200, 100;
+  --callout-icon: lucide-coins;
+}
+
+.callout[data-callout="radar"] {
+  --callout-color: 80, 250, 123;
+  --callout-icon: lucide-satellite;
+}
+
+/* ---------- Tablas ---------- */
+.markdown-preview-view table,
+.markdown-source-view.mod-cm6 table {
+  border-collapse: collapse;
+  width: auto;
+  max-width: 100%;
+}
+
+.markdown-preview-view th,
+.markdown-source-view.mod-cm6 th {
+  background: var(--background-secondary);
+  font-weight: 600;
+}
+
+/* ---------- Dashboard ---------- */
+.ti-dashboard h1 {
+  border-bottom: 2px solid var(--interactive-accent);
+  padding-bottom: 0.3em;
+}
+
+.ti-dashboard h2 {
+  border-left: 4px solid var(--interactive-accent);
+  padding-left: 0.5em;
+  margin-top: 1.5em;
+}
+
+/* ---------- Notas ---------- */
+.ti-note h1 {
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 0.3em;
+}
+
+/* Frontmatter visual (properties) más legible */
+.metadata-container {
+  border-radius: 8px;
+}
+
+/* Enlaces internos más visibles */
+.internal-link {
+  text-decoration: none;
+  border-bottom: 1px dashed var(--interactive-accent);
+}
+
+.internal-link:hover {
+  border-bottom-style: solid;
+}
+
+/* ---------- Dataview: tablas compactas ---------- */
+.dataview.table-view-table {
+  font-size: 0.9em;
+}
+
+.dataview.table-view-table th {
+  background: var(--background-secondary);
+}
+
+/* ---------- Línea de badges: reducir espaciado ---------- */
+.ti-note p:first-of-type {
+  margin-top: 0.2em;
+}

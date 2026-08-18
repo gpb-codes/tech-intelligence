@@ -1,25 +1,45 @@
 ---
 type: template
 title: Research
-desc: Plantilla para una investigación o paper
+desc: Plantilla para investigación / papers
 ---
 
 ---
 type: research
 title: ""
+aliases: []
 authors: []
-published: ""
+institutions: []
 paper_url: ""
-repo: ""
+arxiv_id: ""
+published: ""
+status: unread
 tags: []
+created: ""
+updated: ""
+cssclasses: [ti-note]
 ---
 
 # {{title}}
 
+`🔬 Investigación` · `📄 Paper`
+
 ## Resumen
 
-## Método
+> [!abstract] 
+> 
 
-## Hallazgos
+## Hallazgos clave
 
-## Relevancia
+> [!success] 
+> - 
+
+## Implicaciones
+
+> [!important] 
+> - 
+
+## Enlaces
+
+- Paper: 
+- arXiv:
