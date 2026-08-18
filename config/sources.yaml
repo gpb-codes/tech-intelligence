@@ -116,6 +116,71 @@ sources:
     priority: medium
 
   # ----------------------------------------------------------
+  # RSS — ciberseguridad (feeds verificados, HTTP 200)
+  # ----------------------------------------------------------
+  - id: thehackersnews
+    name: The Hacker News
+    type: rss
+    enabled: true
+    url: "https://feeds.feedburner.com/TheHackersNews"
+    category: Cybersecurity
+    priority: high
+
+  - id: krebsonsecurity
+    name: KrebsOnSecurity
+    type: rss
+    enabled: true
+    url: "https://krebsonsecurity.com/feed/"
+    category: Cybersecurity
+    priority: high
+
+  - id: bleepingcomputer
+    name: BleepingComputer
+    type: rss
+    enabled: true
+    url: "https://www.bleepingcomputer.com/feed/"
+    category: Cybersecurity
+    priority: medium
+
+  # ----------------------------------------------------------
+  # RSS — hardware (feeds verificados, HTTP 200)
+  # ----------------------------------------------------------
+  - id: tomshardware
+    name: Tom's Hardware
+    type: rss
+    enabled: true
+    url: "https://www.tomshardware.com/feeds/all"
+    category: Hardware
+    priority: medium
+
+  - id: phoronix
+    name: Phoronix
+    type: rss
+    enabled: true
+    url: "https://www.phoronix.com/rss.php"
+    category: Hardware
+    priority: medium
+
+  # ----------------------------------------------------------
+  # RSS — productividad (feeds verificados, HTTP 200)
+  # ----------------------------------------------------------
+  - id: itsfoss
+    name: It's FOSS
+    type: rss
+    enabled: true
+    url: "https://itsfoss.com/feed/"
+    category: Productivity
+    priority: medium
+
+  - id: lifehacker
+    name: Lifehacker
+    type: rss
+    enabled: true
+    url: "https://lifehacker.com/rss"
+    category: Productivity
+    priority: medium
+
+  # ----------------------------------------------------------
   # RSS — pendientes (sin feed oficial verificado)
   # ----------------------------------------------------------
   - id: anthropic-news

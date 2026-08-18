@@ -5,9 +5,6 @@ services:
     restart: unless-stopped
     ports:
       - "11434:11434"
-    environment:
-      # Generaciones paralelas reales (los workers de IA dependen de esto)
-      OLLAMA_NUM_PARALLEL: "4"
     volumes:
       - ollama_data:/root/.ollama
     healthcheck:
@@ -29,11 +26,6 @@ services:
       OLLAMA_BASE_URL: http://ollama:11434
       VAULT_PATH: /app/vault
       DATABASE_PATH: /app/database/tech_intelligence.db
-      # Identidad git del contenedor (el Vault se commitea tras cada sync)
-      GIT_AUTHOR_NAME: Tech Intelligence
-      GIT_AUTHOR_EMAIL: tech-intelligence@local
-      GIT_COMMITTER_NAME: Tech Intelligence
-      GIT_COMMITTER_EMAIL: tech-intelligence@local
     volumes:
       - ./vault:/app/vault
       # DB en volumen Docker (NO en bind mount): OneDrive corrompe SQLite

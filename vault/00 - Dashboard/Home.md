@@ -9,11 +9,11 @@ cssclasses: [ti-dashboard]
 
 <span class="ti-runes">ᛟ ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᛟ</span>
 
-_Actualizado: 2026-08-18 08:50 UTC · Forjado con Ollama + OpenRouter · local-first_
+_Actualizado: 2026-08-18 08:59 UTC · Forjado con Ollama + OpenRouter · local-first_
 
 > [!info] 🛡️ Estado del sistema
-> - **2355** artículos en la base · **7** procesados · **1794** pendientes · **0** fallidos
-> - **22** fuentes activas · Vault versionado en Git
+> - **2620** artículos en la base · **7** procesados · **1756** pendientes · **0** fallidos
+> - **29** fuentes activas · Vault versionado en Git
 
 <span class="ti-runes">ᛉ ᛋ ᛟ ᛞ</span>
 
