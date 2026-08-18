@@ -5,52 +5,36 @@ title: The web is evolving. So are we.
 aliases:
 - The web is evolving. So are we.
 original_title: The web is evolving. So are we.
-company: Mozilla
-product: Mozilla.org
+company: ''
+product: ''
 version: ''
 date: '2026-06-23'
 created: '2026-06-23T17:59:27+00:00'
-updated: '2026-08-18T20:53:07+00:00'
+updated: '2026-08-18T22:54:54+00:00'
 original_language: en
 translated: true
-importance: high
+importance: critical
 impact: high
 pricing: unknown
 license: unknown
-open_source: true
+open_source: false
 self_hosted: false
 source: Mozilla Blog
 source_url: https://blog.mozilla.org/en/mozilla/news/announcing-mozilla-org-new-non-profit/
 source_type: rss
-processed_by: openrouter
-backend: opencodezen
-model: nvidia/nemotron-3.5-lightning:free
-insights: true
+processed_by: ollama
+backend: ollama
+model: llama3.2:1b
+insights: false
 status: published
 category: General Tech
-subcategory: nonprofit
+subcategory: ''
 confidence: medium
 example: false
-tags:
-- mozilla
-- nonprofit
-- open-source
-- ai
-- internet
-- restructuring
+tags: []
 alternatives:
-- name: Google Chrome
+- name: Mozilla.org
   confidence: high
-- name: Apple Safari
-  confidence: high
-- name: Microsoft Edge
-  confidence: high
-- name: Brave
-  confidence: high
-- name: Tor Browser
-  confidence: high
-- name: Vivaldi
-  confidence: medium
 cssclasses:
 - ti-note
 ---
@@ -59,65 +43,31 @@ cssclasses:
 
 <span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
 
-`🟢 Alta` · `🚀 Alto`
-
-| Campo | Valor |
-| --- | --- |
-| Empresa | **Mozilla** |
-| Producto | **Mozilla.org** |
-| Open source | ✅ Sí |
+`critical` · `🚀 Alto`
 
 > [!abstract] Resumen
 >
-> - Mozilla lanzó oficialmente **Mozilla.org**, una nueva organización sin fines de lucro 501(c)(3) diseñada para custodiar el éxito a largo plazo del Mozilla Project.
-> - La nueva entidad actuará como un **fondo estratégico (endowment)** que asignará financiación, gestionará marcas y definirá la estrategia para unificar las diversas áreas de Mozilla (navegador, correo electrónico, IA de código abierto, datos, inversión en startups responsables).
-> - El cambio estructural busca **enfrentar el desafío de la era de la IA**, defendiendo el internet abierto y moldeando su futuro según los valores del Manifiesto de Mozilla.
-> - Todas las organizaciones de Mozilla permanecen bajo el paraguas de la **Mozilla Foundation**, manteniendo la propiedad sin fines de lucro y la misión original intactas.
-> - La relevancia radica en que esta estructura actualizada pretende **orquestar los recursos y acciones dispersas** para que el conjunto de Mozilla tenga mayor impacto que sus partes por separado.
+> * La web está evolucionando y Mozilla.org ha sido anunciada como una nueva 501(c)(3) organización sin fines de lucro para cuidar el éxito a largo plazo del proyecto Mozilla.
+> * La nueva organización está enfocada en fusionar los valores de la Manifesto de Mozilla en esta nueva era de internet.
+> * Mozilla ha crecido y evolucionado para asumir este desafío y está todavía una gran fundación sin fines de lucro filantrópica alta y empresa de navegador enfocada en la elección del usuario.
+> * La nueva organización está integrada con otras partes de Mozilla, como correo electrónico, startup de AI abierta y lugar donde las personas pueden crear y compartir datos en sus propios términos.
+> * La tarea de fusionar los valores de la Manifesto de Mozilla en esta nueva era de internet es enorme y hará que sea más fácil guiar nuestros recursos y organizar nuestras acciones para asumir este desafío.
 
 ## ¿Qué ocurrió? ⚔️
 
 > [!info] Traducción del anuncio
 >
-> Web está evolucionando. También lo hacemos.
+> La web está evolucionando. Así lo hemos demostrado. 
 > 
-> Earlier this month, oficialmente pusimos en marcha Mozilla.org: una nueva 501(c)(3) nonprofit creada para custodiar el éxito a largo plazo del Mozilla Project. Durante el último año o así, he dicho mucho sobre cómo AI está reconfigurando web — y cómo necesitamos simultáneamente defender el open internet Mozilla ayudó a construir y dar forma a lo que internet se está convirtiendo en la era de AI. Esto es un gran y urgente desafío. Mozilla ha evolucionado y crecido mucho para enfrentar este desafío. Siguemos siendo una fundación filantrópica de alto impacto y una empresa browser enfocada en user choice. Pero también: una email company construida alrededor de la privacidad; una startup open source AI enfocada en developers; un lugar para que las personas creen y compartan data a su manera; y una inversora en responsible tech startups. Estas son todas piezas de Mozilla hoy, y son todos importantes palancas mientras intentamos dar forma a adónde va internet para mejor. Hemos creado Mozilla.org para reunir todas las diferentes piezas de Mozilla. Actuará como un endowment estratégico — asignando funding, gestionando nuestras brands y definiendo strategy a largo plazo — para asegurar que cada parte de Mozilla esté bien preparada para avanzar la visión descrita en el Mozilla Manifesto. Y, si tenemos éxito, ayudará a que todas las piezas de Mozilla sumen más que sus partes por separado. Esto es un hito importante para Mozilla. El desafío de fusionar los valores del Mozilla Manifesto en esta próxima era de internet es enorme. Esta estructura actualizada facilitará dirigir nuestros resources y orquestar nuestras actions para enfrentar este desafío. Al mismo tiempo, lo que amamos de Mozilla se mantiene igual. Todas las organizaciones de Mozilla siguen bajo el paraguas de la 501(c)(3) Mozilla Foundation, con el nuevo nonprofit operando el portfolio de organizaciones de Mozilla en su nombre. Nuestra misión — y nuestro compromiso con la nonprofit ownership en la cima — se mantienen firmes. Para más información sobre el nuevo Mozilla.org nonprofit incluyendo un FAQ, visita wiki.mozilla.org/mozilla_org. The post Web está evolucionando. También lo hacemos. apareció primero en The Mozilla Blog.
+> Antes de esto, habíamos anunciado Mozilla.org: una nueva 501(c)(3) organización sin fines de lucro creada para cuidar el éxito a largo plazo del proyecto Mozilla. A lo largo de los últimos meses, he hablado mucho sobre cómo el AI está transformando la web — y cómo debemos al mismo tiempo defender la internet abierta que hemos ayudado a construir y formar en el proyecto Mozilla . Esta es una gran y urgente tarea. Mozilla ha evolucionado y crecido mucho para poder asumir este desafío. Estamos todavía una gran fundación sin fines de lucro filantrópica alta y una empresa de navegador enfocada en la elección del usuario. Pero también somos: una empresa de correo electrónico construida alrededor de la privacidad; una startup de AI abierta enfocada en los desarrolladores; un lugar donde las personas pueden crear y compartir datos en sus propios términos; y un inversor en startups tecnológicas responsables. Estos son todos los pedazos de Mozilla hoy en día, y son todos importantes levers para intentar dar forma a dónde se dirige la internet para el mejor. Habíamos creado Mozilla.org para reunir todos estos pedazos. Es como una reserva estratégica — asignar fondos, gestionar nuestras marcas y planificar a largo plazo para asegurar que cada parte de Mozilla esté bien preparada para avanzar en la visión que se ha escrito en el Manifesto de Mozilla. Y, si logramos ser exitosos, ayudará a todos los pedazos de Mozilla sumar más de lo que son solo la suma de sus partes. Este es un hito importante para Mozilla. La tarea de fusionar los valores de la Manifesto de Mozilla en esta nueva era de internet es enorme. Esta estructura actualizada hará que sea más fácil guiar nuestros recursos y organizar nuestras acciones para asumir este desafío. A la vez, lo que nos gusta de Mozilla permanece lo mismo. Todas nuestras organizaciones se mantienen bajo el ámbito de la 501(c)(3) Mozilla Foundation, con la nueva organización operando la portafolio de organizaciones de Mozilla en su nombre. Nuestra misión — y nuestra compromiso con la propiedad no lucrativa en la cima — permanecen firmes. Para más información sobre la nueva Mozilla.org organización sin fines de lucro, incluyendo una pregunta frecuente, vea wiki.mozilla.org/mozilla_org. El post The web is evolving. Así lo hemos demostrado. apareció primero en The Mozilla Blog.
 
 ## ¿Por qué importa? 🛡️
 
 > [!success] Impacto
 >
-> - Lanzamiento de Mozilla.org como nueva 501(c)(3) nonprofit para custodiar el éxito a largo plazo del proyecto Mozilla
-> - Modelo de endowment estratégico para asignar funding, gestionar brands y definir strategy a largo plazo alineado con el Mozilla Manifesto
-> - Reorganización que integra diversas entidades Mozilla (browser, email, startup open source AI) bajo un paraguas organizativo unificado
-
-## 📜 Informe para desarrolladores
-
-> [!info] ¿Qué es?
->
-> Mozilla.org es una nueva organización sin fines de lucro 501(c)(3) creada para custodiar el éxito a largo plazo del Proyecto Mozilla. Actúa como un fondo estratégico que unifica las distintas iniciativas de la compañía, incluyendo una startup de IA de código abierto enfocada en desarrolladores y una empresa de correo electrónico centrada en la privacidad.
-
-> [!tip] ¿En qué ayuda al desarrollo?
->
-> Esta estructura ayuda al desarrollo de software al fomentar una startup de IA open source diseñada específicamente para desarrolladores. Además, promueve la defensa de un internet abierto y tecnologías responsables, proporcionando un ecosistema donde los sistemas pueden construirse con privacidad y libertad.
-
-### Relevancia por perfil ⚔️
-
-| Perfil | Relevancia | Debes saber / actualizarte |
-| --- | --- | --- |
-| Trainee | Media | Conocer la startup de IA open source para devs · Entender la misión de internet abierto |
-| Junior | Media | Usar herramientas de IA open source de Mozilla · Seguir buenas prácticas de privacidad |
-| Semi-Senior | Media | Evaluar tecnologías responsables para proyectos · Integrar APIs de IA open source |
-| Senior | Alta | Definir estrategia con enfoque en open internet · Guiar uso de IA responsable |
-| Ingeniero de Software | Alta | Aprovechar startup IA open source para devs · Contribuir a proyectos de Mozilla |
-| Ingeniero en Redes | Baja | Entender defensa del open internet · Conocer infraestructura de privacidad Mozilla |
-| DevOps / SRE | Media | Gestionar sistemas de email privado · Desplegar herramientas de IA open source |
-| Ciberseguridad | Alta | Proteger datos con enfoque de privacidad · Evaluar seguridad de tech responsable |
-
-
-## Información técnica ⚒️
-
-- **Open source:** sí
+> - Nuevos modelos importantes
+> - Grandes releases
+> - Cambios significativos de producto
 
 ## Precio 🪙
 
@@ -125,12 +75,7 @@ _No se ha detectado información de precios en la fuente._
 
 ## Alternativas 🔄
 
-- **Google Chrome** — confianza: high
-- **Apple Safari** — confianza: high
-- **Microsoft Edge** — confianza: high
-- **Brave** — confianza: high
-- **Tor Browser** — confianza: high
-- **Vivaldi** — confianza: medium
+- **Mozilla.org** — confianza: high
 
 ## Fuente original 📜
 
