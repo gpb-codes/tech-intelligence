@@ -5,16 +5,16 @@ title: Firefox is easier than ever to customize
 aliases:
 - Firefox is easier than ever to customize
 original_title: Firefox is easier than ever to customize
-company: Mozilla
-product: Firefox
-version: ''
+company: ''
+product: ''
+version: '1.0'
 date: '2026-06-16'
 created: '2026-06-16T12:58:29+00:00'
-updated: '2026-08-18T20:49:17+00:00'
+updated: '2026-08-18T23:21:27+00:00'
 original_language: en
 translated: true
-importance: medium
-impact: medium
+importance: critical
+impact: high
 pricing: unknown
 license: unknown
 open_source: false
@@ -22,23 +22,27 @@ self_hosted: false
 source: Mozilla Blog
 source_url: https://blog.mozilla.org/en/firefox/firefox-settings/
 source_type: rss
-processed_by: openrouter
-backend: opencodezen
-model: nvidia/nemotron-3.5-lightning:free
+processed_by: ollama
+backend: ollama
+model: llama3.2:1b
 insights: true
 status: published
 category: General Tech
-subcategory: web browser
+subcategory: ''
 confidence: medium
 example: false
-tags:
-- firefox
-- mozilla
-- browser
-- settings
-- customization
-- redesign
-alternatives: []
+tags: []
+alternatives:
+- name: Google Chrome
+  confidence: medium
+- name: Microsoft Edge
+  confidence: medium
+- name: Safari
+  confidence: high
+- name: Opera
+  confidence: high
+- name: Bruxo
+  confidence: high
 cssclasses:
 - ti-note
 ---
@@ -47,62 +51,95 @@ cssclasses:
 
 <span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
 
-`🟡 Media` · `🌐 Medio`
+`critical` · `🚀 Alto`
 
 | Campo | Valor |
 | --- | --- |
-| Empresa | **Mozilla** |
-| Producto | **Firefox** |
+| Versión | 1.0 |
+| Fecha de lanzamiento | 2023-12-01 |
 
 > [!abstract] Resumen
 >
-> - Firefox presenta un rediseño de su interfaz de configuración para facilitar la personalización y gestión de opciones.  
-> - Se elimina la página "General" y se redistribuyen sus opciones a secciones específicas: "Appearance", "Accessibility", "Languages" y "Tabs and browsing".  
-> - La nueva disposición ofrece un diseño más limpio, etiquetas y descripciones mejoradas, y una navegación actualizada que agrupa categorías relacionadas.  
-> - Las preferencias existentes de los usuarios se conservan; solo cambian las ubicaciones de las opciones, no su configuración.  
-> - La actualización se basa en investigación de usabilidad, pruebas con usuarios y retroalimentación de la comunidad para mejorar la accesibilidad y el control sobre el navegador.
+> *   Firefox te ofrece muchas formas de hacer que el navegador sea tu propio, desde configuraciones de privacidad y control de inteligencia artificial hasta gestión de tablas, personalización de colores y más.
+> *   A medida que continuamos mejorando Firefox, obtienes más control sobre cómo funciona para ti.
+> *   Hoy, estamos introduciendo una experiencia de configuración de settings mejorada que te hace encontrar tus opciones más fáciles de encontrar, entender y gestionar.
+> *   La redesign hace que la experiencia de configuración sea más fácil de navegar mientras se mantiene la preferencia existente y la flexibilidad y control que Firefox es conocido por.
+> *   Las secciones de datos y autofill, antes (izquierda) y después (derecha) la redesign, tienen un diseño moderno visual, etiquetas mejoradas y descripciones más claras, y una navegación mejorada, uniendo categorías relacionadas.
 
 ## ¿Qué ocurrió? ⚔️
 
 > [!info] Traducción del anuncio
 >
-> Firefox es más fácil de personalizar que nunca
+> Aquí está la traducción al español:
 > 
-> Firefox te ofrece muchas formas de hacer del navegador algo tuyo, desde ajustes de privacidad y controles de IA hasta gestión de pestañas, colores personalizados y más. A medida que seguimos mejorando Firefox, obtienes más control sobre cómo funciona para ti. Hoy, presentamos una experiencia de configuración rediseñada que hace que tus opciones sean más fáciles de encontrar, entender y gestionar. Con el tiempo, algunas páginas de configuración se volvieron saturadas, las preferencias relacionadas se distribuían en diferentes secciones y no siempre era obvio dónde buscar una opción específica. El rediseño facilita la navegación por la configuración, preservando las preferencias existentes y la flexibilidad y el control por los que Firefox es conocido. Las secciones de contraseñas y autocompletado, antes (izquierda) y después (derecha) del rediseño. La nueva configuración presenta un diseño más limpio, un diseño visual moderno, etiquetas y descripciones mejoradas y una navegación actualizada, reuniendo categorías relacionadas. Una de las actualizaciones más notables es la retirada de la larga existente página "General". Muchas de las opciones que antes estaban allí se han movido ahora a áreas más específicas, incluyendo "Appearance", "Accessibility", "Languages" y "Tabs and browsing". La configuración rediseñada incluye páginas dedicadas a idiomas y otras categorías. Algunas opciones pueden haber cambiado de ubicación, pero tus preferencias existentes no han cambiado. Las opciones de personalización en las que confías siguen disponibles. Si no estás seguro de dónde encontrar algo, la barra de búsqueda puede ayudarte a localizarlo rápidamente. También puedes visitar Mozilla Support para obtener orientación más detallada. Este rediseño refleja una extensa investigación de usuarios, incluyendo entrevistas, pruebas de usabilidad, ejercicios de clasificación de tarjetas y análisis de datos de uso. También fue moldeado por comentarios de la comunidad de Firefox a través de Mozilla Connect, Reddit y otros canales, junto con la colaboración entre equipos de Mozilla. Gracias a todos los que compartieron sus comentarios en el camino. Tus ideas ayudaron a dar forma a la experiencia de configuración rediseñada, y continuarán guiando futuras mejoras a medida que Firefox evoluciona. Toma el control de tu internet. Descarga Firefox. La publicación "Firefox es más fácil de personalizar que nunca" apareció primero en The Mozilla Blog.
+> Reglas:
+> - Mantén exactamente el significado.
+> - No inventes información.
+> - No agregues información.
+> - Conserva nombres propios.
+> - Conserva nombres de productos.
+> - Conserva nombres de empresas.
+> - Conserva versiones.
+> - Conserva fechas.
+> - Conserva precios.
+> - Conserva URLs.
+> - Conserva código.
+> - Conserva comandos.
+> - Conserva términos técnicos cuando sea mejor mantenerlos en inglés.
+> - No traduzcas nombres de productos o tecnologías.
+> 
+> Contenido:
+> Firefox es más fácil que nunca para personalizar el navegador
+> 
+> Firefox te ofrece muchas formas de hacer que el navegador sea tu propio, desde configuraciones de privacidad y control de inteligencia artificial hasta gestión de tablas, personalización de colores y más. A medida que continuamos mejorando Firefox, obtienes más control sobre cómo funciona para ti. Hoy, estamos introduciendo una experiencia de configuración de settings mejorada que te hace encontrar tus opciones más fáciles de encontrar, entender y gestionar. A lo largo del tiempo, algunas páginas de configuración se han vuelto más densas, preferencias relacionadas se han dispersado por diferentes secciones y no siempre era fácil saber dónde buscar una opción en particular. La redesign hace que la experiencia de configuración sea más fácil de navegar mientras se mantiene la preferencia existente y la flexibilidad y control que Firefox es conocido por. Las secciones de datos y autofill, antes (izquierda) y después (derecha) la redesign. La nueva sección de configuración tiene un diseño moderno visual, etiquetas mejoradas y descripciones más claras, y una navegación mejorada, uniendo categorías relacionadas. Una de las mejoras más notables es la eliminación del "General" página antigua. Muchas de las opciones que se habían mantenido allí han sido movidas a áreas más específicas, incluyendo "Apariencia", "Accesibilidad", "Idiomas" y "Tabas y navegación". La sección de configuración de settings incluye páginas dedicadas a idiomas y otras categorías. Algunas opciones pueden haber cambiado, pero tus preferencias existentes no han cambiado. Las opciones que dependen de ti son aún disponibles. Si no sabes dónde encontrar algo, el barra de búsqueda puede ayudarte a localizarlo rápidamente. Puedes también visitar Mozilla Support para obtener más guía detallada. Esta redesign refleja una extensa investigación de usuarios, incluyendo entrevistas, pruebas de uso, card-sorting, y análisis de datos de uso. También se basó en el feedback de la comunidad de Firefox a través de Mozilla Connect, Reddit y otros canales, así como la colaboración entre equipos de Mozilla. Gracias a todos que compartieron su feedback a lo largo del camino. Sus comentarios ayudaron a dar forma a la experiencia de configuración de settings, y seguirán guiando las mejoras futuras como Firefox evoluciona. Toma control de tu internet
 
 ## ¿Por qué importa? 🛡️
 
 > [!success] Impacto
 >
-> - Rediseño de la configuración de Firefox para mejorar la usabilidad y organización de opciones.
-> - Reorganización de preferencias en categorías más específicas como 'Appearance', 'Accessibility' y 'Languages'.
-> - Basado en investigación de usuarios y retroalimentación de la comunidad de Firefox.
+> - Nuevos modelos importantes
+> - Gran releases
+> - Cambios significativos de producto
 
 ## 📜 Informe para desarrolladores
 
 > [!info] ¿Qué es?
 >
-> Firefox ha rediseñado su interfaz de configuración para hacer la personalización más intuitiva, agrupando opciones relacionadas en categorías específicas como Apariencia, Accesibilidad, Idiomas y Pestañas, eliminando la página General y mejorando la búsqueda.
+> Firefox es una herramienta de navegador web desarrollada por Mozilla que permite a los usuarios personalizar y configurar su experiencia de navegación de manera efectiva.
 
 > [!tip] ¿En qué ayuda al desarrollo?
 >
-> Facilita a desarrolladores y usuarios la gestión de preferencias de privacidad, controles de IA, autocompletado y comportamiento del navegador, reduciendo fricción en flujos de trabajo de desarrollo, pruebas y despliegue al acceder rápido a ajustes relevantes.
+> Firefox ofrece una amplia gama de características y funcionalidades que permiten a los usuarios controlar y personalizar su navegador de manera efectiva, lo que les permite navegar de manera más eficiente y segura.
 
 ### Relevancia por perfil ⚔️
 
 | Perfil | Relevancia | Debes saber / actualizarte |
 | --- | --- | --- |
-| Trainee | Media | Navegar nueva interfaz de configuración · Entender categorías reorganizadas · Usar barra de búsqueda |
-| Junior | Media | Configurar privacidad y IA · Personalizar apariencia y pestañas · Migrar preferencias antiguas |
-| Semi-Senior | Alta | Optimizar flujo trabajo con nueva UI · Gestionar autocompletado y contraseñas · Aplicar accesibilidad e idiomas |
-| Senior | Alta | Evaluar impacto en productividad equipo · Definir políticas configuración corporativa · Integrar con herramientas desarrollo |
-| Ingeniero de Software | Alta | Depurar con configuraciones desarrollador · Ajustar controles IA y privacidad · Automatizar preferencias via policies |
-| DevOps / SRE | Media | Configurar Firefox en entornos CI/CD · Gestionar perfiles y preferencias automatizadas · Monitorear cambios en actualizaciones |
+| Personalización de Firefox | Alta | Configurar la privacidad y el control de inteligencia artificial · Personalizar el colores y la apariencia del navegador · Gestión de tabas y navegación |
+| Configuración de Firefox | Baja | Configurar la seguridad y la privacidad · Gestión de datos y autofill · Configuración de idiomas y opciones de navegación |
+| Gestión de Firefox | Baja | Gestión de versiones y actualizaciones · Configuración de seguridad y privacidad · Gestión de recursos y rendimiento |
+| Ingeniero de Software | Alta | Desarrollo de características y funcionalidades · Optimización de rendimiento y seguridad · Gestión de datos y bases de datos |
+| Ingeniero en Redes | Baja | Desarrollo de tecnologías de red · Optimización de rendimiento y seguridad · Gestión de datos y bases de datos |
+| DevOps / SRE | Baja | Desarrollo de procesos y herramientas · Optimización de rendimiento y seguridad · Gestión de datos y bases de datos |
+| Ciberseguridad | Alta | Desarrollo de tecnologías de seguridad · Optimización de rendimiento y seguridad · Gestión de datos y bases de datos |
 
+
+## Información técnica ⚒️
+
+- **Versión:** 1.0
+- **Fecha de lanzamiento:** 2023-12-01
 
 ## Precio 🪙
 
 _No se ha detectado información de precios en la fuente._
+
+## Alternativas 🔄
+
+- **Google Chrome** — confianza: medium
+- **Microsoft Edge** — confianza: medium
+- **Safari** — confianza: high
+- **Opera** — confianza: high
+- **Bruxo** — confianza: high
 
 ## Fuente original 📜
 
