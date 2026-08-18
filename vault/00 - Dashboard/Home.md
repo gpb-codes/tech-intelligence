@@ -5,15 +5,19 @@ aliases: [Inicio, Dashboard]
 cssclasses: [ti-dashboard]
 ---
 
-# 🛰️ Tech Intelligence
+# ⚔️ Tech Intelligence
 
-_Actualizado: 2026-08-18 07:53 UTC · Sistema local-first · Procesado con Ollama_
+<span class="ti-runes">ᛟ ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᛟ</span>
 
-> [!info] Estado del sistema
-> - **2429** artículos en la base · **10** procesados · **642** pendientes · **802** fallidos
+_Actualizado: 2026-08-18 08:50 UTC · Forjado con Ollama + OpenRouter · local-first_
+
+> [!info] 🛡️ Estado del sistema
+> - **2355** artículos en la base · **7** procesados · **1794** pendientes · **0** fallidos
 > - **22** fuentes activas · Vault versionado en Git
 
-## 🔥 Últimas actualizaciones
+<span class="ti-runes">ᛉ ᛋ ᛟ ᛞ</span>
+
+## 🔥 Últimas actualizaciones ⚔️
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", company AS "Empresa", product AS "Producto" FROM "02 - Updates" WHERE status = "published" AND example = false SORT date DESC LIMIT 20
@@ -21,100 +25,97 @@ TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importanci
 
 _(fallback sin Dataview: últimas 15)_
 
-- Release: 1.127.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.128.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.129.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.130.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.131.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.132.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: v1.0.0 — deepseek-ai/DeepSeek-V3 _(fuente: DeepSeek-V3 (GitHub))_
+- Release: Release v5.12.0 — huggingface/transformers _(fuente: Hugging Face Transformers (GitHub))_
+- Release: Patch release v5.13.1 — huggingface/transformers _(fuente: Hugging Face Transformers (GitHub))_
+- Release: v16.3.1-canary.14 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v16.3.1-canary.17 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v16.3.1-canary.21 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v2.1.226 — anthropics/claude-code _(fuente: Claude Code (GitHub))_
+- Release: v2.1.231 — anthropics/claude-code _(fuente: Claude Code (GitHub))_
 
-## IA
+## IA ᛟ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/IA" WHERE contains(category, "IA") AND example = false SORT date DESC LIMIT 10
 ```
 
-_(fallback: últimas 1)_
 
-- Release: v1.0.0 — deepseek-ai/DeepSeek-V3 _(fuente: DeepSeek-V3 (GitHub))_
-
-## Developer Tools
+## Developer Tools ᛋ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Developer Tools" WHERE contains(category, "Developer Tools") AND example = false SORT date DESC LIMIT 10
 ```
 
-_(fallback: últimas 5)_
 
-- Release: 1.127.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.128.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.129.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.130.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.131.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-
-## Open Source
+## Open Source ᛚ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Open Source" WHERE contains(category, "Open Source") AND example = false SORT date DESC LIMIT 10
 ```
 
 
-## Cloud
+## Cloud ᛒ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Cloud" WHERE contains(category, "Cloud") AND example = false SORT date DESC LIMIT 10
 ```
 
 
-## Cybersecurity
+## Cybersecurity ᛞ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Cybersecurity" WHERE contains(category, "Cybersecurity") AND example = false SORT date DESC LIMIT 10
 ```
 
 
-## Hardware
+## Hardware ᛏ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Hardware" WHERE contains(category, "Hardware") AND example = false SORT date DESC LIMIT 10
 ```
 
 
-## Productivity
+## Productivity ᛗ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/Productivity" WHERE contains(category, "Productivity") AND example = false SORT date DESC LIMIT 10
 ```
 
 
-## General Tech
+## General Tech ᛉ
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/General Tech" WHERE contains(category, "General Tech") AND example = false SORT date DESC LIMIT 10
 ```
 
+_(fallback: últimas 5)_
 
-## 💸 Cambios de precio
+- Release: Release v5.12.0 — huggingface/transformers _(fuente: Hugging Face Transformers (GitHub))_
+- Release: Patch release v5.13.1 — huggingface/transformers _(fuente: Hugging Face Transformers (GitHub))_
+- Release: v16.3.1-canary.14 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v16.3.1-canary.17 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v16.3.1-canary.21 — vercel/next.js _(fuente: Next.js (GitHub))_
+
+## 💸 Cambios de precio 🪙
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", product AS "Producto", pricing AS "Precio" FROM "02 - Updates" WHERE pricing != "unknown" AND pricing != "open-source" AND example = false SORT date DESC LIMIT 15
 ```
 
 
-## 🧠 Nuevos modelos
+## 🧠 Nuevos modelos ⚔️
 
-- Release: v1.0.0 — deepseek-ai/DeepSeek-V3 _(fuente: DeepSeek-V3 (GitHub))_
+_Sin modelos detectados aún._
 
 ## 🔁 Alternativas gratuitas / open source
 
-- Release: 1.127.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.128.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.129.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.130.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.131.0 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: 1.132.1 — microsoft/vscode _(fuente: VS Code (GitHub))_
-- Release: v1.0.0 — deepseek-ai/DeepSeek-V3 _(fuente: DeepSeek-V3 (GitHub))_
+- Release: Release v5.12.0 — huggingface/transformers _(fuente: Hugging Face Transformers (GitHub))_
+- Release: Patch release v5.13.1 — huggingface/transformers _(fuente: Hugging Face Transformers (GitHub))_
+- Release: v16.3.1-canary.14 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v16.3.1-canary.17 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v16.3.1-canary.21 — vercel/next.js _(fuente: Next.js (GitHub))_
+- Release: v2.1.226 — anthropics/claude-code _(fuente: Claude Code (GitHub))_
+- Release: v2.1.231 — anthropics/claude-code _(fuente: Claude Code (GitHub))_
 
 ## 🐙 GitHub
 
@@ -124,7 +125,7 @@ _Sin actividad de GitHub aún._
 
 _Sin investigaciones detectadas aún._
 
-## 🛰️ Tech Radar
+## 🛰️ Tech Radar ᛟ
 
 ```dataview
 TABLE ring AS "Anillo", category AS "Categoría", file.link AS "Nota" FROM "10 - Radar" WHERE type = "trend" SORT ring ASC, date DESC
@@ -132,6 +133,8 @@ TABLE ring AS "Anillo", category AS "Categoría", file.link AS "Nota" FROM "10 -
 
 Anillos: 🟢 **ADOPT** · 🔵 **TRIAL** · 🟡 **ASSESS** · 🔴 **HOLD**  
 _El Radar se actualiza manualmente en `10 - Radar/`._
+
+<span class="ti-runes">ᛉ ᛋ ᛟ ᛞ</span>
 
 ## 📊 Estadísticas
 

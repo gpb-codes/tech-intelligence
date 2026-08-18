@@ -23,9 +23,11 @@ cssclasses: [ti-note]
 
 # {{name}}
 
+<span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
+
 `🏢 Empresa`
 
-## Qué hace
+## Qué hace ⚔️
 
 > [!abstract] En una frase
 > 

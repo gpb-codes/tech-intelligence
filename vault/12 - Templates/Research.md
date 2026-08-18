@@ -22,9 +22,11 @@ cssclasses: [ti-note]
 
 # {{title}}
 
+<span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
+
 `🔬 Investigación` · `📄 Paper`
 
-## Resumen
+## Resumen 🛡️
 
 > [!abstract] 
 > 

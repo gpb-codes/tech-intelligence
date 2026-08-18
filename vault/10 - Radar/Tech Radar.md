@@ -5,11 +5,13 @@ aliases: [Radar]
 cssclasses: [ti-note]
 ---
 
-# 🛰️ Tech Radar
+# ⛰️ Tech Radar
+
+<span class="ti-runes">ᛟ ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᛟ</span>
 
 El Radar clasifica tecnologías según su madurez y utilidad para ti. Cada tecnología es una nota con `type: trend` y un campo `ring`.
 
-## Anillos
+## Anillos ⚔️
 
 | Anillo | Significado | Color |
 | ------ | ----------- | ----- |

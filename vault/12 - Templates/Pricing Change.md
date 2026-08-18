@@ -24,9 +24,11 @@ cssclasses: [ti-note]
 
 # {{title}}
 
+<span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
+
 `💸 Cambio de precio` · `🚀 Alto impacto`
 
-## Cambio
+## Cambio 🪙
 
 | | Antes | Ahora |
 | --- | --- | --- |

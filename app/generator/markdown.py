@@ -190,7 +190,7 @@ def _insights_section(result: dict) -> str:
     if not (what_is or why_dev or profiles):
         return ""
 
-    lines = ["## 📊 Informe para desarrolladores", ""]
+    lines = ["## 📜 Informe para desarrolladores", ""]
 
     if what_is:
         lines.append("> [!info] ¿Qué es?")
@@ -207,7 +207,7 @@ def _insights_section(result: dict) -> str:
         lines.append("")
 
     if profiles:
-        lines.append("### Relevancia por perfil")
+        lines.append("### Relevancia por perfil ⚔️")
         lines.append("")
         lines.append("| Perfil | Relevancia | Debes saber / actualizarte |")
         lines.append("| --- | --- | --- |")
@@ -235,6 +235,8 @@ def build_body(article: dict, result: dict) -> str:
     lines: list[str] = []
     lines.append(f"# {article.get('title', '')}")
     lines.append("")
+    lines.append('<span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>')
+    lines.append("")
 
     # Badges bajo el título
     badges = _badges_line(article, result)
@@ -256,7 +258,7 @@ def build_body(article: dict, result: dict) -> str:
     lines.append("")
 
     if translation:
-        lines.append("## ¿Qué ocurrió?")
+        lines.append("## ¿Qué ocurrió? ⚔️")
         lines.append("")
         lines.append("> [!info] Traducción del anuncio")
         lines.append(">")
@@ -266,7 +268,7 @@ def build_body(article: dict, result: dict) -> str:
 
     reasons = classification.get("reasons") or []
     if reasons:
-        lines.append("## ¿Por qué importa?")
+        lines.append("## ¿Por qué importa? 🛡️")
         lines.append("")
         lines.append("> [!success] Impacto")
         lines.append(">")
@@ -295,12 +297,12 @@ def build_body(article: dict, result: dict) -> str:
     if classification.get("self_hosted"):
         tech_parts.append("- **Self-hosted:** sí")
     if tech_parts:
-        lines.append("## Información técnica")
+        lines.append("## Información técnica ⚒️")
         lines.append("")
         lines.extend(tech_parts)
         lines.append("")
 
-    lines.append("## Precio")
+    lines.append("## Precio 🪙")
     lines.append("")
     pricing = classification.get("pricing") or "unknown"
     price_detail = extracted.get("price") or ""
@@ -314,7 +316,7 @@ def build_body(article: dict, result: dict) -> str:
     lines.append("")
 
     if alternatives:
-        lines.append("## Alternativas")
+        lines.append("## Alternativas 🔄")
         lines.append("")
         for a in alternatives:
             conf = a.get("confidence", "medium")
@@ -325,7 +327,7 @@ def build_body(article: dict, result: dict) -> str:
                 lines.append(f"- **{name}** — confianza: {conf}")
         lines.append("")
 
-    lines.append("## Fuente original")
+    lines.append("## Fuente original 📜")
     lines.append("")
     if article.get("url"):
         lines.append(f"[{article.get('url', '')}]({article['url']})")
@@ -334,7 +336,7 @@ def build_body(article: dict, result: dict) -> str:
     lines.append("")
 
     if translation and original:
-        lines.append("## Contenido original")
+        lines.append("## Contenido original 📚")
         lines.append("")
         lines.append("<details>")
         lines.append("<summary>Ver contenido original (no traducido)</summary>")

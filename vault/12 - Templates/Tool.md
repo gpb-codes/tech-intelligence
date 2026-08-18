@@ -26,9 +26,11 @@ cssclasses: [ti-note]
 
 # {{name}}
 
+<span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
+
 `🔧 Herramienta` · `💰 Gratis` · `🧡 Open source`
 
-## Qué es
+## Qué es ⚔️
 
 > [!abstract] En una frase
 > 

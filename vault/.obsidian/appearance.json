@@ -4,5 +4,6 @@
     "tech-intelligence"
   ],
   "baseFontSize": 16,
-  "accentColor": "#7c5cff"
+  "accentColor": "#7c5cff",
+  "theme": "obsidian"
 }

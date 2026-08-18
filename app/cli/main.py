@@ -155,6 +155,16 @@ def cmd_seed(args) -> int:
     return 0
 
 
+def cmd_dash(args) -> int:
+    from app.generator.dashboard import generate_dashboard
+
+    settings, conn = bootstrap()
+    path = generate_dashboard(conn, settings)
+    print(f"Dashboard regenerado: {path}")
+    conn.close()
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="tech-intelligence",
@@ -201,6 +211,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("seed", help="Insertar datos de ejemplo")
     s.set_defaults(func=cmd_seed)
+
+    s = sub.add_parser("dash", help="Regenerar el Dashboard (Home.md)")
+    s.set_defaults(func=cmd_dash)
 
     return p
 

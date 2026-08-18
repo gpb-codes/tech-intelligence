@@ -1,100 +1,494 @@
 /* ============================================================
-   Tech Intelligence — estilos propios del Vault
+   TECH INTELLIGENCE — Tema Nórdico / Vikingo
+   Paleta: púrpura, oro, plata, rojo sangre, azul glacial
    ============================================================ */
 
-/* ---------- Badges (código inline como etiquetas) ---------- */
-.markdown-preview-view code,
-.markdown-source-view.mod-cm6 .cm-inline-code {
-  border-radius: 4px;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+body.theme-dark {
+  /* ---- Paleta nórdica ---- */
+  --ti-purple: #a78bfa;
+  --ti-purple-deep: #7c5cff;
+  --ti-purple-dark: #3b2a7a;
+  --ti-gold: #f0c75e;
+  --ti-gold-deep: #d4af37;
+  --ti-silver: #c9d4e3;
+  --ti-silver-dark: #8fa3bf;
+  --ti-red: #e5484d;
+  --ti-red-deep: #a13034;
+  --ti-blue: #60a5fa;
+  --ti-midnight: #0b1026;
+  --ti-midnight-2: #111833;
+  --ti-midnight-3: #1a2347;
+  --ti-text: #dbe4f3;
+  --ti-text-muted: #93a4c0;
+  --ti-font-heading: 'Cinzel Decorative', Georgia, 'Times New Roman', serif;
+  --ti-font-body: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  /* ---- Variables base de Obsidian ---- */
+  --background-primary: #0b1026;
+  --background-primary-alt: #0e1430;
+  --background-secondary: #111833;
+  --background-secondary-alt: #1a2347;
+  --background-modifier-border: #2c3a66;
+  --background-modifier-hover: rgba(124, 92, 255, 0.12);
+  --background-modifier-active-hover: rgba(212, 175, 55, 0.14);
+  --text-normal: #dbe4f3;
+  --text-muted: #93a4c0;
+  --text-faint: #5f6f92;
+  --text-accent: #a78bfa;
+  --interactive-accent: #7c5cff;
+  --interactive-accent-hover: #a78bfa;
+  --interactive-accent-rgb: 124, 92, 255;
+  --link-color: #a78bfa;
+  --link-color-hover: #f0c75e;
+  --link-unresolved-color: #8fa3bf;
+  --tag-background: rgba(124, 92, 255, 0.16);
+  --tag-color: #a78bfa;
+  --tag-border-color: rgba(124, 92, 255, 0.45);
+  --code-background: #0d1330;
+  --code-normal: #f0c75e;
+  --code-comment: #5f6f92;
+  --code-keyword: #a78bfa;
+  --code-function: #60a5fa;
+  --code-string: #8adf9e;
+  --code-number: #f0c75e;
+  --code-property: #c9d4e3;
+  --table-border-color: rgba(143, 163, 191, 0.25);
+  --blockquote-border-color: #d4af37;
+  --text-selection: rgba(124, 92, 255, 0.35);
+  --modal-background: #111833;
+  --canvas-color-1: 124, 92, 255;
+  --canvas-color-2: 240, 199, 94;
+  --canvas-color-3: 229, 72, 77;
+  --canvas-color-4: 96, 165, 250;
+  --canvas-color-5: 201, 212, 227;
+
+  /* Resplandor de auroras boreales de fondo */
+  background:
+    radial-gradient(1100px 700px at 15% -10%, rgba(124, 92, 255, 0.14), transparent 60%),
+    radial-gradient(900px 650px at 95% 110%, rgba(96, 165, 250, 0.10), transparent 60%),
+    #0b1026;
 }
 
-/* Badges tipo pill: ``🟢 Alta`` etc. */
-.markdown-preview-view p code,
-.markdown-source-view.mod-cm6 .cm-line .cm-inline-code {
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: var(--background-secondary);
-  border: 1px solid var(--background-modifier-border);
+/* ---- Tipografía general ---- */
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 {
+  font-family: var(--ti-font-body);
+  font-size: 1.06em;
+}
+
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-source-view.mod-cm6 .cm-heading {
+  font-family: var(--ti-font-heading);
+}
+
+/* ============================================================
+   TÍTULOS — oro, púrpura, plata con runas
+   ============================================================ */
+
+/* H1: oro con degradado real (solo lectura) */
+.markdown-preview-view h1 {
+  font-size: 1.9em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ti-gold);
+  background: linear-gradient(120deg, #f0c75e 0%, #d4af37 30%, #a78bfa 70%, #7c5cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.markdown-preview-view h1::before {
+  content: "ᛟ ";
+  -webkit-text-fill-color: var(--ti-gold-deep);
+}
+
+/* Fila de runas + línea dorada bajo el H1 */
+.markdown-preview-view h1::after {
+  content: "ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ";
+  display: block;
+  margin-top: 0.35em;
+  font-size: 0.5em;
+  letter-spacing: 0.9em;
+  text-indent: 0.9em;
+  color: var(--ti-gold-deep);
+  -webkit-text-fill-color: var(--ti-gold-deep);
+  opacity: 0.9;
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.45);
+  border-bottom: 1px solid rgba(124, 92, 255, 0.35);
+  padding-bottom: 0.55em;
+}
+
+/* H1 en editor (vista en vivo) */
+.markdown-source-view.mod-cm6 .cm-heading-h1 {
+  color: var(--ti-gold);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.markdown-source-view.mod-cm6 .cm-heading-h1::before {
+  content: "ᛟ ";
+  color: var(--ti-gold-deep);
+}
+
+/* H2: plata glacial con barra púrpura-azul */
+.markdown-preview-view h2,
+.markdown-source-view.mod-cm6 .cm-heading-h2 {
+  color: var(--ti-silver);
+  letter-spacing: 0.05em;
+}
+
+.markdown-preview-view h2 {
+  box-shadow: inset 3px 0 0 0 var(--ti-purple-deep), inset 5px 0 0 0 rgba(96, 165, 250, 0.55);
+  padding-left: 0.55em;
+}
+
+.markdown-preview-view h2::before,
+.markdown-source-view.mod-cm6 .cm-heading-h2::before {
+  content: "ᛉ ";
+  color: var(--ti-purple);
+}
+
+/* H3: púrpura */
+.markdown-preview-view h3,
+.markdown-source-view.mod-cm6 .cm-heading-h3 {
+  color: var(--ti-purple);
+}
+
+.markdown-preview-view h3::before,
+.markdown-source-view.mod-cm6 .cm-heading-h3::before {
+  content: "ᛋ ";
+  color: var(--ti-purple-deep);
+}
+
+/* H4: oro apagado */
+.markdown-preview-view h4,
+.markdown-source-view.mod-cm6 .cm-heading-h4 {
+  color: var(--ti-gold-deep);
+}
+
+/* Separadores */
+.markdown-preview-view hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7c5cff 25%, #f0c75e 50%, #a78bfa 75%, transparent);
+}
+
+/* ============================================================
+   RUNAS DECORATIVAS (línea tipo <span class="ti-runes">)
+   ============================================================ */
+.ti-runes {
+  display: block;
+  text-align: center;
+  margin: 0.1em 0 0.9em;
+  color: var(--ti-gold-deep);
+  letter-spacing: 0.9em;
+  text-indent: 0.9em;
   font-size: 0.8em;
+  opacity: 0.9;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
 }
 
-/* ---------- Callouts ---------- */
-.callout {
-  border-radius: 8px;
-}
-
-.callout[data-callout="abstract"] {
-  --callout-color: 139, 233, 253;
-  --callout-icon: lucide-clipboard-list;
-}
-
-.callout[data-callout="money"] {
-  --callout-color: 250, 200, 100;
-  --callout-icon: lucide-coins;
-}
-
-.callout[data-callout="radar"] {
-  --callout-color: 80, 250, 123;
-  --callout-icon: lucide-satellite;
-}
-
-/* ---------- Tablas ---------- */
-.markdown-preview-view table,
-.markdown-source-view.mod-cm6 table {
-  border-collapse: collapse;
-  width: auto;
-  max-width: 100%;
-}
-
-.markdown-preview-view th,
-.markdown-source-view.mod-cm6 th {
-  background: var(--background-secondary);
-  font-weight: 600;
-}
-
-/* ---------- Dashboard ---------- */
-.ti-dashboard h1 {
-  border-bottom: 2px solid var(--interactive-accent);
-  padding-bottom: 0.3em;
-}
-
-.ti-dashboard h2 {
-  border-left: 4px solid var(--interactive-accent);
-  padding-left: 0.5em;
-  margin-top: 1.5em;
-}
-
-/* ---------- Notas ---------- */
-.ti-note h1 {
-  border-bottom: 1px solid var(--background-modifier-border);
-  padding-bottom: 0.3em;
-}
-
-/* Frontmatter visual (properties) más legible */
-.metadata-container {
-  border-radius: 8px;
-}
-
-/* Enlaces internos más visibles */
+/* ============================================================
+   ENLACES — púrpura, dorado al pasar el ratón
+   ============================================================ */
 .internal-link {
+  color: var(--ti-purple);
   text-decoration: none;
-  border-bottom: 1px dashed var(--interactive-accent);
+  border-bottom: 1px dashed rgba(124, 92, 255, 0.5);
+  transition: all 0.15s;
 }
 
 .internal-link:hover {
-  border-bottom-style: solid;
+  color: var(--ti-gold);
+  border-bottom: 1px solid var(--ti-gold-deep);
+  text-shadow: 0 0 10px rgba(240, 199, 94, 0.5);
 }
 
-/* ---------- Dataview: tablas compactas ---------- */
+.external-link {
+  color: var(--ti-blue);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(96, 165, 250, 0.5);
+}
+
+.external-link:hover {
+  color: var(--ti-gold);
+}
+
+/* ============================================================
+   ETIQUETAS (tags) — píldoras rúnicas
+   ============================================================ */
+.tag {
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.25), rgba(124, 92, 255, 0.08));
+  border: 1px solid rgba(124, 92, 255, 0.45);
+  border-radius: 10px;
+  color: #cdbaff !important;
+  padding: 0 8px;
+}
+
+.tag:hover {
+  border-color: var(--ti-gold-deep);
+  color: var(--ti-gold) !important;
+}
+
+/* ============================================================
+   BADGES (código inline como etiquetas: ``🟢 Alta`` etc.)
+   ============================================================ */
+.markdown-preview-view p code,
+.markdown-source-view.mod-cm6 .cm-line .cm-inline-code {
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.28), rgba(212, 175, 55, 0.16));
+  color: var(--ti-gold);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 12px;
+  padding: 1px 10px;
+  font-size: 0.82em;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.12), inset 0 0 6px rgba(124, 92, 255, 0.15);
+}
+
+/* Código de bloques (no confundir con badges) */
+.markdown-preview-view pre,
+.markdown-source-view.mod-cm6 .cm-codeblock {
+  background: #0d1330;
+  border: 1px solid rgba(143, 163, 191, 0.25);
+  border-radius: 8px;
+}
+
+/* ============================================================
+   CALLOUTS — púrpura, azul, oro, plata, rojo
+   ============================================================ */
+.callout {
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: 0 2px 16px rgba(124, 92, 255, 0.10);
+}
+
+.callout-title {
+  font-family: var(--ti-font-heading);
+  letter-spacing: 0.05em;
+}
+
+.callout-icon {
+  filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.55));
+}
+
+.callout[data-callout="abstract"] {
+  --callout-color: 167, 139, 250;
+  --callout-icon: lucide-scroll-text;
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.18), rgba(124, 92, 255, 0.04));
+  border-left: 4px solid #7c5cff;
+}
+
+.callout[data-callout="abstract"] .callout-title-inner {
+  color: #cdbaff;
+}
+
+.callout[data-callout="info"] {
+  --callout-color: 96, 165, 250;
+  --callout-icon: lucide-info;
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.16), rgba(96, 165, 250, 0.03));
+  border-left: 4px solid #3b82f6;
+}
+
+.callout[data-callout="info"] .callout-title-inner {
+  color: #a5c8ff;
+}
+
+.callout[data-callout="tip"] {
+  --callout-color: 167, 139, 250;
+  --callout-icon: lucide-sword;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.18), rgba(167, 139, 250, 0.04));
+  border-left: 4px solid #a78bfa;
+}
+
+.callout[data-callout="tip"] .callout-title-inner {
+  color: #cdbaff;
+}
+
+.callout[data-callout="success"] {
+  --callout-color: 240, 199, 94;
+  --callout-icon: lucide-shield;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.20), rgba(212, 175, 55, 0.05));
+  border-left: 4px solid #d4af37;
+}
+
+.callout[data-callout="success"] .callout-title-inner {
+  color: #f5dfa8;
+}
+
+.callout[data-callout="money"] {
+  --callout-color: 201, 212, 227;
+  --callout-icon: lucide-coins;
+  background: linear-gradient(135deg, rgba(201, 212, 227, 0.15), rgba(201, 212, 227, 0.04));
+  border-left: 4px solid #8fa3bf;
+}
+
+.callout[data-callout="money"] .callout-title-inner {
+  color: #dbe4f3;
+}
+
+.callout[data-callout="radar"] {
+  --callout-color: 229, 72, 77;
+  --callout-icon: lucide-compass;
+  background: linear-gradient(135deg, rgba(229, 72, 77, 0.18), rgba(229, 72, 77, 0.04));
+  border-left: 4px solid #e5484d;
+}
+
+.callout[data-callout="radar"] .callout-title-inner {
+  color: #ff9d9f;
+}
+
+.callout[data-callout="warning"] {
+  --callout-color: 229, 72, 77;
+  background: linear-gradient(135deg, rgba(229, 72, 77, 0.15), rgba(229, 72, 77, 0.03));
+  border-left: 4px solid #e5484d;
+}
+
+.callout[data-callout="danger"] {
+  --callout-color: 161, 48, 52;
+  background: linear-gradient(135deg, rgba(161, 48, 52, 0.2), rgba(161, 48, 52, 0.05));
+  border-left: 4px solid #a13034;
+}
+
+/* ============================================================
+   CITAS (no-callout) — pergamino dorado
+   ============================================================ */
+.markdown-preview-view blockquote:not(.callout),
+.markdown-source-view.mod-cm6 .cm-blockquote {
+  border-left: 3px solid var(--ti-gold-deep);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02));
+  border-radius: 0 8px 8px 0;
+  color: var(--ti-silver);
+  font-style: italic;
+}
+
+/* ============================================================
+   TABLAS — cabeceras doradas/púrpura, filas alternas
+   ============================================================ */
+.markdown-preview-view table,
+.markdown-source-view.mod-cm6 table,
 .dataview.table-view-table {
-  font-size: 0.9em;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: auto;
+  max-width: 100%;
+  border: 1px solid rgba(143, 163, 191, 0.25);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
+.markdown-preview-view th,
+.markdown-source-view.mod-cm6 th,
 .dataview.table-view-table th {
-  background: var(--background-secondary);
+  background: linear-gradient(135deg, #5b3fd6, #7c5cff 60%, #4a34b8);
+  color: #f5f0ff;
+  font-family: var(--ti-font-heading);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.55);
 }
 
-/* ---------- Línea de badges: reducir espaciado ---------- */
+.markdown-preview-view td,
+.markdown-source-view.mod-cm6 td,
+.dataview.table-view-table td {
+  border: 1px solid rgba(143, 163, 191, 0.18);
+}
+
+.markdown-preview-view tr:nth-child(even) td,
+.dataview.table-view-table tbody tr:nth-child(even) {
+  background: rgba(124, 92, 255, 0.06);
+}
+
+.markdown-preview-view tr:hover td,
+.dataview.table-view-table tbody tr:hover {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* ============================================================
+   PROPIEDADES (frontmatter) — marco dorado
+   ============================================================ */
+.metadata-container {
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  background: rgba(124, 92, 255, 0.05);
+}
+
+.metadata-properties-heading {
+  color: var(--ti-gold);
+  font-family: var(--ti-font-heading);
+}
+
+.metadata-property-key {
+  color: var(--ti-silver-dark);
+}
+
+/* ============================================================
+   DETAILS / CONTENIDO ORIGINAL
+   ============================================================ */
+details {
+  border: 1px dashed rgba(212, 175, 55, 0.4);
+  border-radius: 8px;
+  padding: 0.4em 1em;
+  margin: 0.6em 0;
+  background: rgba(124, 92, 255, 0.04);
+}
+
+details > summary {
+  font-family: var(--ti-font-heading);
+  color: var(--ti-gold);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+details > summary::before {
+  content: "ᛟ ";
+}
+
+/* ============================================================
+   NOTAS (cssclasses: ti-note)
+   ============================================================ */
+.ti-note h1 {
+  margin-bottom: 0.15em;
+}
+
 .ti-note p:first-of-type {
   margin-top: 0.2em;
+}
+
+/* ============================================================
+   DASHBOARD (cssclasses: ti-dashboard)
+   ============================================================ */
+.ti-dashboard h1 {
+  font-size: 2.1em;
+  margin-bottom: 0.2em;
+}
+
+.ti-dashboard h2 {
+  color: var(--ti-silver);
+  box-shadow: inset 3px 0 0 0 var(--ti-purple-deep), inset 5px 0 0 0 rgba(96, 165, 250, 0.55);
+  padding-left: 0.55em;
+  letter-spacing: 0.06em;
+}
+
+.ti-dashboard h2::before {
+  content: "ᛉ ";
+  color: var(--ti-purple);
+}
+
+.ti-dashboard .callout[data-callout="info"] {
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  box-shadow: 0 0 22px rgba(96, 165, 250, 0.15);
+}
+
+/* ============================================================
+   SELECCIÓN DE TEXTO — púrpura de sangre
+   ============================================================ */
+::selection {
+  background: rgba(124, 92, 255, 0.35);
 }

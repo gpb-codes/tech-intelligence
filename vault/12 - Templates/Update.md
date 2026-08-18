@@ -40,6 +40,8 @@ cssclasses: [ti-note]
 
 # {{title}}
 
+<span class="ti-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</span>
+
 `🟢 Alta` · `🚀 Alto` · `💳 De pago` · `confianza: high`
 
 | Campo | Valor |
@@ -50,18 +52,18 @@ cssclasses: [ti-note]
 > [!abstract] Resumen
 > Resume aquí en 2-3 líneas.
 
-## ¿Qué ocurrió?
+## ¿Qué ocurrió? ⚔️
 
 > [!info] Traducción del anuncio
 > Explica la noticia en detalle.
 
-## ¿Por qué importa?
+## ¿Por qué importa? 🛡️
 
 > [!success] Impacto
 > - Razón 1
 > - Razón 2
 
-## 📊 Informe para desarrolladores
+## 📜 Informe para desarrolladores
 
 > [!info] ¿Qué es?
 > 
@@ -69,7 +71,7 @@ cssclasses: [ti-note]
 > [!tip] ¿En qué ayuda al desarrollo?
 > 
 
-### Relevancia por perfil
+### Relevancia por perfil ⚔️
 
 | Perfil | Relevancia | Debes saber / actualizarte |
 | --- | --- | --- |
@@ -82,24 +84,24 @@ cssclasses: [ti-note]
 | DevOps / SRE | | |
 | Ciberseguridad | | |
 
-## Información técnica
+## Información técnica ⚒️
 
 - **Versión:** 
 - **Licencia:** 
 
-## Precio
+## Precio 🪙
 
 > [!money] 💳 De pago
 
-## Alternativas
+## Alternativas 🔄
 
 - **Nombre** — confianza: media
 
-## Fuente original
+## Fuente original 📜
 
 [URL](URL)
 
-## Contenido original
+## Contenido original 📚
 
 <details>
 <summary>Ver contenido original (no traducido)</summary>

@@ -69,16 +69,20 @@ def generate_dashboard(conn: sqlite3.Connection, settings) -> Path:
         "cssclasses: [ti-dashboard]",
         "---",
         "",
-        "# 🛰️ Tech Intelligence",
+        "# ⚔️ Tech Intelligence",
         "",
-        f"_Actualizado: {_now()} · Sistema local-first · Procesado con Ollama_",
+        '<span class="ti-runes">ᛟ ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᛟ</span>',
         "",
-        "> [!info] Estado del sistema",
+        f"_Actualizado: {_now()} · Forjado con Ollama + OpenRouter · local-first_",
+        "",
+        "> [!info] 🛡️ Estado del sistema",
         f"> - **{counts['total']}** artículos en la base · **{counts['processed']}** procesados · "
         f"**{counts['pending']}** pendientes · **{counts['failed']}** fallidos",
         f"> - **{counts['sources']}** fuentes activas · Vault versionado en Git",
         "",
-        "## 🔥 Últimas actualizaciones",
+        '<span class="ti-runes">ᛉ ᛋ ᛟ ᛞ</span>',
+        "",
+        "## 🔥 Últimas actualizaciones ⚔️",
         "",
         "```dataview",
         'TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", '
@@ -104,8 +108,19 @@ def generate_dashboard(conn: sqlite3.Connection, settings) -> Path:
         ("General Tech", by_cat.get("General Tech", [])),
     ]
 
+    CATEGORY_RUNES = {
+        "AI": "ᛟ",
+        "Developer Tools": "ᛋ",
+        "Open Source": "ᛚ",
+        "Cloud": "ᛒ",
+        "Cybersecurity": "ᛞ",
+        "Hardware": "ᛏ",
+        "Productivity": "ᛗ",
+        "General Tech": "ᛉ",
+    }
+
     for title, items in sections:
-        lines.append(f"## {title}")
+        lines.append(f"## {title} {CATEGORY_RUNES.get(title, 'ᛟ')}")
         lines.append("")
         lines.append("```dataview")
         lines.append(f'TABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", importance AS "Importancia", product AS "Producto" FROM "02 - Updates/{title}" WHERE contains(category, "{title}") AND example = false SORT date DESC LIMIT 10')
@@ -117,7 +132,7 @@ def generate_dashboard(conn: sqlite3.Connection, settings) -> Path:
             lines.extend(_entry_link(a) for a in items[:5])
         lines.append("")
 
-    lines.append("## 💸 Cambios de precio")
+    lines.append("## 💸 Cambios de precio 🪙")
     lines.append("")
     lines.append('```dataview\nTABLE WITHOUT ID file.link AS "Nota", date AS "Fecha", product AS "Producto", pricing AS "Precio" FROM "02 - Updates" WHERE pricing != "unknown" AND pricing != "open-source" AND example = false SORT date DESC LIMIT 15\n```')
     lines.append("")
@@ -127,7 +142,7 @@ def generate_dashboard(conn: sqlite3.Connection, settings) -> Path:
         lines.extend(_entry_link(a) for a in pricing[:5])
     lines.append("")
 
-    lines.append("## 🧠 Nuevos modelos")
+    lines.append("## 🧠 Nuevos modelos ⚔️")
     lines.append("")
     if models:
         lines.extend(_entry_link(a) for a in models[:10])
@@ -159,7 +174,7 @@ def generate_dashboard(conn: sqlite3.Connection, settings) -> Path:
         lines.append("_Sin investigaciones detectadas aún._")
     lines.append("")
 
-    lines.append("## 🛰️ Tech Radar")
+    lines.append("## 🛰️ Tech Radar ᛟ")
     lines.append("")
     lines.append("```dataview")
     lines.append('TABLE ring AS "Anillo", category AS "Categoría", file.link AS "Nota" FROM "10 - Radar" WHERE type = "trend" SORT ring ASC, date DESC')
@@ -167,6 +182,8 @@ def generate_dashboard(conn: sqlite3.Connection, settings) -> Path:
     lines.append("")
     lines.append("Anillos: 🟢 **ADOPT** · 🔵 **TRIAL** · 🟡 **ASSESS** · 🔴 **HOLD**  ")
     lines.append("_El Radar se actualiza manualmente en `10 - Radar/`._")
+    lines.append("")
+    lines.append('<span class="ti-runes">ᛉ ᛋ ᛟ ᛞ</span>')
     lines.append("")
 
     lines.append("## 📊 Estadísticas")
