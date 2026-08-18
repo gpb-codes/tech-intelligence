@@ -142,6 +142,8 @@ def test_openrouter_client(monkeypatch):
     from app.ollama.client import OpenRouterClient
 
     class FakeResp:
+        status_code = 200
+
         def raise_for_status(self):
             pass
 
@@ -168,3 +170,86 @@ def test_openrouter_client(monkeypatch):
     client2 = OpenRouterClient("", "modelo")
     with pytest.raises(OllamaError, match="OPENROUTER_API_KEY"):
         client2.generate("p")
+
+
+def test_openrouter_multiple_models_rotation(monkeypatch):
+    from app.ollama.client import OpenRouterClient
+
+    class FakeResp:
+        status_code = 200
+
+        def __init__(self, content='{"ok": true}'):
+            self.content = content
+
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": self.content}}]}
+
+    used = []
+
+    def fake_post(url, **kwargs):
+        used.append(kwargs["json"]["model"])
+        return FakeResp()
+
+    monkeypatch.setattr("app.ollama.client.requests.post", fake_post)
+    client = OpenRouterClient("KEY", models=["modelo-a", "modelo-b"])
+    client.generate("p1")
+    client.generate("p2")
+    client.generate("p3")
+    # Round-robin: modelo-a, modelo-b, modelo-a
+    assert used == ["modelo-a", "modelo-b", "modelo-a"]
+
+
+def test_openrouter_failover_on_429(monkeypatch):
+    from app.ollama.client import OpenRouterClient
+
+    class FakeResp429:
+        status_code = 429
+        text = '{"error": {"message": "rate limit"}}'
+
+        def raise_for_status(self):
+            pass
+
+    class FakeRespOk:
+        status_code = 200
+
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}]}
+
+    responses = iter([FakeResp429(), FakeRespOk()])
+    used = []
+
+    def fake_post(url, **kwargs):
+        used.append(kwargs["json"]["model"])
+        return next(responses)
+
+    monkeypatch.setattr("app.ollama.client.requests.post", fake_post)
+    client = OpenRouterClient("KEY", models=["modelo-1", "modelo-2"])
+    out = client.generate_json("p")
+    assert out == {"ok": True}
+    # modelo-1 dio 429 -> failover a modelo-2
+    assert used == ["modelo-1", "modelo-2"]
+
+
+def test_openrouter_all_429_raises(monkeypatch):
+    from app.ollama.client import OpenRouterClient
+
+    class FakeResp429:
+        status_code = 429
+        text = '{"error": {"message": "rate limit"}}'
+
+        def raise_for_status(self):
+            pass
+
+    def fake_post(url, **kwargs):
+        return FakeResp429()
+
+    monkeypatch.setattr("app.ollama.client.requests.post", fake_post)
+    client = OpenRouterClient("KEY", models=["modelo-1", "modelo-2"])
+    with pytest.raises(OllamaError, match="Rate limit"):
+        client.generate("p")

@@ -44,10 +44,11 @@ def run_health(conn: sqlite3.Connection, settings) -> HealthReport:
 
     # IA (backend configurado: Ollama local u OpenRouter)
     if settings.ai_backend == "openrouter":
-        client = OpenRouterClient(settings.openrouter_api_key, settings.openrouter_model,
+        client = OpenRouterClient(settings.openrouter_api_key, models=settings.openrouter_models,
                                   timeout=settings.ollama_timeout)
         if client.is_available():
-            report.add("OpenRouter", True, f"{settings.openrouter_model} (web search: {':online' in settings.openrouter_model})")
+            models = ", ".join(client.models) or settings.openrouter_model
+            report.add("OpenRouter", True, f"{len(client.models)} modelos: {models[:80]}")
         else:
             report.add("OpenRouter", False, "sin conexión con openrouter.ai")
     else:

@@ -6,10 +6,15 @@
 settings:
   # Backend de IA: ollama (local, privado) | openrouter (cloud, con web search si el modelo es :online)
   ai:
-    backend: ollama
+    backend: openrouter
     # Solo para backend openrouter:
     openrouter_api_key: ""
-    openrouter_model: "moonshotai/kimi-k2:online"
+    openrouter_model: "nvidia/nemotron-3.5-lightning:free"
+    # Varios modelos: se rotan en cada llamada y hay failover si uno da rate limit
+    openrouter_models:
+      - "nvidia/nemotron-3.5-lightning:free"
+      - "google/gemma-4-26b-a4b-it:free"
+      - "nvidia/nemotron-3-ultra-550b-a55b:free"
     openrouter_timeout: 180
 
   ollama:
@@ -29,6 +34,7 @@ settings:
   # Procesamiento
   max_processing_attempts: 3
   long_content_chars: 15000  # contenido más largo -> Inbox/Sources
+  processing_workers: 3      # artículos procesados en paralelo
 
   # Git
   git_enabled: true
